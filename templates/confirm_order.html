@@ -1,0 +1,159 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+    <title>Campus-Portal-Fees</title>
+
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" type="text/css" href={% static 'assets/css/bootstrap.min.css'%} >
+
+    <link rel="stylesheet" type="text/css" href={% static 'assets/css/font-awesome.css'%} >
+
+    <link rel="stylesheet" href={% static 'assets/css/index.css'%}>
+
+    <link rel="stylesheet" href={% static "assets/css/owl-carousel.css"%}>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+
+
+<link rel="stylesheet" href={% static 'css/order.css' %}>
+
+</head>
+
+<body>
+
+
+
+    <header class="header-area header-sticky  ">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="main-nav navbar-dark " style='position:fixed-top'>
+                        <!-- ***** Logo Start ***** -->
+                        <a href="index.html" class="logo">
+                            Pay - Fees
+                        </a>
+                        <!-- ***** Logo End ***** -->
+                        <!-- ***** Menu Start ***** -->
+                        <ul class="nav">
+                                                    
+                          
+                          {% if user.is_authenticated %}
+
+                            <li class="scroll-to-section">  <p class="mr-sm-2 my-2 mx-6 text-dark">Hello <span style="text-transform:uppercase;"> <b style='color:salmon'>{{ user.username  }}</b> </span> </p></li>
+                                <a class="btn btn-outline-danger my-2 mx-6 my-sm-0" type="" href="{% url 'logout' %}"> Logout</a>
+                          
+                          {% endif %}
+                          
+             
+
+                        </ul>
+                        <a class='menu-trigger'>
+                            <span>Menu</span>
+                        </a>
+                        <!-- ***** Menu End ***** -->
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+
+
+
+    <div class="login-form" style='margin-top:100px'>
+
+
+        <a type="" class="btn btn-danger btn-block btn-lg text-warning" href="../payments/"><- Back to Dashboard </a>            
+
+
+      <form action="{% url 'payment_status' %}" method="POST">{% csrf_token %}
+
+<center>
+
+      <h4>Your Details</h4>
+
+
+          <div class="gender" style="margin-bottom:20px">
+              Fees  {{ price }}  
+          </div>
+
+     </center>     
+            
+            
+         
+            <div class="form-group"><input type="text" name="name" class="form-control" placeholder="{{ name }}" disabled></div>
+            <div class="form-group"><input type="text" name="name" class="form-control" placeholder="{{ phone }}" disabled></div>
+            <div class="form-group"><input type="text" name="name" class="form-control" placeholder="{{ email }}" disabled></div>
+
+
+       <script    src="https://checkout.razorpay.com/v1/checkout.js"
+                   data-key="rzp_test_3rwBYBLYRPHJWd"
+                   data-amount="{{ price }}"
+                   data-currency="INR"
+                   data-order_id="{{ order_id }}"
+                   data-buttontext="Pay with Razorpay"
+                   data-name="Campus Portal"
+                   data-description="Education Fees "
+                   data-image="{% static 'images/apple-touch-icon.png' %}"
+                   data-prefill.name="{{ name }}"
+                   data-prefill.email="{{ email }}"
+                   data-prefill.contact="{{ phone }}"
+                   data-theme.color="#F37254">
+                   
+                   
+                   
+        </script>
+        <input type="hidden" custom="Hidden Element" name="hidden">
+
+
+
+      </form>
+
+
+
+
+    <!-- jQuery -->
+    <script src={% static "assets/js/jquery-2.1.0.min.js" %}></script>
+
+    <!-- Bootstrap -->
+    <script src={% static "assets/js/popper.js" %}></script>
+    <script src={% static "assets/js/bootstrap.min.js" %}></script>
+
+    <!-- Plugins -->
+    <script src={% static "assets/js/owl-carousel.js" %}></script>
+    <script src={% static "assets/js/scrollreveal.min.js" %}></script>
+    <script src={% static "assets/js/waypoints.min.js" %}></script>
+    <script src={% static "assets/js/jquery.counterup.min.js" %}></script>
+    <script src={% static "assets/js/imgfix.min.js" %}></script>
+
+    <!-- Global Init -->
+    <script src={% static  "assets/js/custom.js" %} ></script>
+
+
+<!-- Prevent this page from coming back  on clicking backbutton-->
+{% comment %} <script type="text/javascript" >
+   function preventBack(){window.history.forward();}
+    setTimeout("preventBack()", 0);
+    window.onunload=function(){null};
+</script> {% endcomment %}
+
+
+    </div>
+  </body>
+</html>

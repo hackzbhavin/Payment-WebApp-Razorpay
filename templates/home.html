@@ -1,0 +1,326 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+    <title>Campus-Portal-Fees</title>
+
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" type="text/css" href={% static 'assets/css/bootstrap.min.css'%} >
+
+    <link rel="stylesheet" type="text/css" href={% static 'assets/css/font-awesome.css'%} >
+
+    <link rel="stylesheet" href={% static 'assets/css/index.css'%}>
+
+    <link rel="stylesheet" href={% static "assets/css/owl-carousel.css"%}>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+</head>
+
+<body >
+
+
+<!-- ***** Header Area Start ***** -->
+
+{% include 'home-navbar.html' %}
+<!-- ***** Header Area End ***** -->
+
+<!--===============================================================================================-->	
+<!--======================================= If User is Authenticated  ========================================================-->	
+
+{% if user.is_authenticated %}
+
+
+
+    <!-- ***** Welcome Area Start ***** -->
+    <div class="welcome-area"  style='margin-top: 200px;' id="welcome2">
+
+        <!-- ***** Header Text Start ***** -->
+        <div class="header-text" >
+            <div class="container">
+                <div class="row">
+                    <div class="left-text col-lg-6 col-md-12 col-sm-12 col-xs-12"
+                        data-scroll-reveal="enter left move 30px over 0.6s after 0.4s"  >
+                        <h1 style='margin-top: -200px;' >We welcome you <span class="text-uppercase"><em>{{ result.5 }} </em></span></h1>
+                        <p>Razorpay is the most popular payments gateway which is helping us help students to pay their education fees Safe, Secure and Online</p> 
+                        {% if student_fees_details.fees_amount == 0 %}
+                                                <a class="main-button-slider " style='cursor: not-allowed; color:green'  >Paid Already</a>
+                        {% else %}
+                                                    <a href="{% url 'student_dashboard' %}" class="main-button-slider" >Pay {{student_fees_details.fees_amount}} </a>
+
+                        {% endif %}
+                   </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- ***** Header Text End ***** -->
+    </div>
+
+
+<!--===================================== If User is !Authenticated ==========================================================-->	
+
+
+{% else %}
+
+
+    <!-- ***** Welcome Area Start ***** -->
+    <div class="welcome-area"  style='margin-top: 200px;' id="welcome">
+
+        <!-- ***** Header Text Start ***** -->
+        <div class="header-text" >
+            <div class="container">
+                <div class="row">
+                    <div class="left-text col-lg-6 col-md-12 col-sm-12 col-xs-12"
+                        data-scroll-reveal="enter left move 30px over 0.6s after 0.4s"  >
+                        <h1 style='margin-top: -200px;' >Pay Education Fees with <em>Razorpay</em></h1>
+                        <p>Razorpay is the most popular payments gateway which is helping us help students to pay their education fees Safe, Secure and Online</p> 
+                        <a href="{% url 'login' %}" class="main-button-slider">Pay</a>
+                   
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ***** Header Text End ***** -->
+    </div>
+    <!-- ***** Welcome Area End ***** -->
+
+{% endif %}
+
+
+<!--===================================== End if ==========================================================-->	
+
+
+
+    <!-- ***** Features Big Item Start ***** -->
+    <section class="section" id="about" >
+      <center>  <h1 style='margin-top: -120px;' >We Offer</h1></center>
+
+        <div class="container" style='margin-top: 50px;'>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12"
+                    data-scroll-reveal="enter left move 30px over 0.6s after 0.4s">
+                    <div class="features-item">
+                        <div class="features-icon">
+                            <h2>01</h2>
+                            <img src={% static "assets/images/about-icon-01.png" %} height="150px" width='150px' alt="">
+                            <h4>Master Card Accepted</h4>
+                      
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12"
+                    data-scroll-reveal="enter bottom move 30px over 0.6s after 0.4s">
+                    <div class="features-item">
+                        <div class="features-icon">
+                            <h2>02</h2>
+                            <img src={% static "assets/images/about-icon-02.png" %} style="margin-top:45px" height="100px" width='150px' alt="">
+                            <h4>Visa Card Accepted</h4>
+                        
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12"
+                    data-scroll-reveal="enter right move 30px over 0.6s after 0.4s">
+                    <div class="features-item">
+                        <div class="features-icon">
+                            <h2>03</h2>
+                            <img src={% static "assets/images/about-icon-03.png" %}  height="150px" width='150px'  alt="">
+                            <h4>UPI Accepted</h4>
+                         
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+   
+   
+   
+   
+   
+   
+<!--===============================================================================================-->	
+<!--======================================= If User is Authenticated  ========================================================-->	
+
+{% if user.is_authenticated %}
+
+   
+    <!-- ***** Features Big Item End ***** -->
+
+    <div class="left-image-decor"></div>
+
+    <!-- ***** Features Big Item Start ***** -->
+    <section class="section" id="promotion">
+        <div class="container">
+            <div class="row">
+                <div class="left-image col-lg-5 col-md-12 col-sm-12 mobile-bottom-fix-big"
+                    data-scroll-reveal="enter left move 30px over 0.6s after 0.4s">
+                    <img src={% static "assets/images/tech_flow_2.png" %} width='2000px' class="rounded img-fluid d-block mx-auto" alt="App">
+                </div>
+                <div class="right-text offset-lg-1 col-lg-6 col-md-12 col-sm-12 mobile-bottom-fix">
+                    <ul>
+                        <li data-scroll-reveal="enter right move 30px over 0.6s after 0.4s">
+                            <img src={% static  "assets/images/small-3.png" %} height="200px" width="200px"  alt="">
+                            <div class="text">
+                                <h4>Safe!</h4>
+                                <p>Safe transaction from end to end <a>
+                                contact</a> us for any queries we are always ready to help with issues </p>
+                            </div>
+                        </li>
+                        <li data-scroll-reveal="enter right move 30px over 0.6s after 0.5s">
+                            <img src= {% static  "assets/images/small-1.png" %} height="200px" width="200px"  alt="">
+                            <div class="text">
+                                <h4>Quick Process</h4>
+                                <p>You can trust the payment gateway from our website
+                                 </p>
+                            </div>
+                        </li>
+                        <li data-scroll-reveal="enter right move 30px over 0.6s after 0.6s">
+                            <img src={% static  "assets/images/small-2.png" %} height="200px" width="200px" alt="">
+                            <div class="text">
+                                <h4>Multiple Payment Options</h4>
+                                <p>We have look into every possible payment option</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ***** Features Big Item End ***** -->
+	
+<!--===============================================================================================-->	
+
+{% else %}
+
+
+    <!-- ***** Features Big Item End ***** -->
+
+    <div class="left-image-decor"></div>
+
+    <!-- ***** Features Big Item Start ***** -->
+    <section class="section" id="promotion">
+        <div class="container">
+            <div class="row">
+                <div class="left-image col-lg-5 col-md-12 col-sm-12 mobile-bottom-fix-big"
+                    data-scroll-reveal="enter left move 30px over 0.6s after 0.4s">
+                    <img src={% static "assets/images/left-image.png" %} width='2000px' class="rounded img-fluid d-block mx-auto" alt="App">
+                </div>
+                <div class="right-text offset-lg-1 col-lg-6 col-md-12 col-sm-12 mobile-bottom-fix">
+                    <ul>
+                        <li data-scroll-reveal="enter right move 30px over 0.6s after 0.4s">
+                            <img src={% static  "assets/images/small-3.png" %} height="200px" width="200px"  alt="">
+                            <div class="text">
+                                <h4>Safe!</h4>
+                                <p>Safe transaction from end to end <a>
+                                contact</a> us for any queries we are always ready to help with issues </p>
+                            </div>
+                        </li>
+                        <li data-scroll-reveal="enter right move 30px over 0.6s after 0.5s">
+                            <img src= {% static  "assets/images/small-1.png" %} height="200px" width="200px"  alt="">
+                            <div class="text">
+                                <h4>Quick Process</h4>
+                                <p>You can trust the payment gateway from our website
+                                 </p>
+                            </div>
+                        </li>
+                        <li data-scroll-reveal="enter right move 30px over 0.6s after 0.6s">
+                            <img src={% static  "assets/images/small-2.png" %} height="200px" width="200px" alt="">
+                            <div class="text">
+                                <h4>Multiple Payment Options</h4>
+                                <p>We have look into every possible payment option</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ***** Features Big Item End ***** -->
+
+{% endif %}
+
+<!--===============================================================================================-->	
+<!--===============================================================================================-->	
+<!--===============================================================================================-->	
+<!--===============================================================================================-->	
+
+
+
+
+
+    <!-- ***** Footer Start ***** -->
+    
+    <footer id="contact-us" style='margin-top: -100px;'>
+        <center>
+        <div class="container">
+            <div class="container">
+                <div class="footer-content">
+                    <!-- ***** Contact Form Start ***** -->
+                   
+                            <li data-scroll-reveal="enter left move 30px over 0.6s after 0.5s">
+
+ <img src= {% static "assets/images/dash.png" %} height="500px" width="700px"  alt="">
+                            </li>
+                </div>
+            </div>
+                        </div></center>
+               
+                    <!-- ***** Contact Form End ***** -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="sub-footer">
+                        <p>Copyright &copy; 2020 Campus Portal 
+
+                        | Designed by Bhavin</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- jQuery -->
+    <script src={% static "assets/js/jquery-2.1.0.min.js" %}></script>
+
+    <!-- Bootstrap -->
+    <script src={% static "assets/js/popper.js" %}></script>
+    <script src={% static "assets/js/bootstrap.min.js" %}></script>
+
+    <!-- Plugins -->
+    <script src={% static "assets/js/owl-carousel.js" %}></script>
+    <script src={% static "assets/js/scrollreveal.min.js" %}></script>
+    <script src={% static "assets/js/waypoints.min.js" %}></script>
+    <script src={% static "assets/js/jquery.counterup.min.js" %}></script>
+    <script src={% static "assets/js/imgfix.min.js" %}></script>
+
+    <!-- Global Init -->
+    <script src={% static  "assets/js/custom.js" %} ></script>
+
+
+
+
+
+<!-- Prevent this page from coming back  on clicking backbutton-->
+{% comment %} <script type="text/javascript" >
+   function preventBack(){window.history.forward();}
+    setTimeout("preventBack()",0);
+    window.onunload=function(){null};
+</script>
+ {% endcomment %}
+
+
+</body>
+</html>

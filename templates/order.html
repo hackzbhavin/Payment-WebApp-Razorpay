@@ -1,0 +1,203 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+    <title>Campus-Portal-Fees</title>
+
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" type="text/css" href={% static 'assets/css/bootstrap.min.css'%} >
+
+    <link rel="stylesheet" type="text/css" href={% static 'assets/css/font-awesome.css'%} >
+
+    <link rel="stylesheet" href={% static 'assets/css/index.css'%}>
+
+    <link rel="stylesheet" href={% static "assets/css/owl-carousel.css"%}>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="stylesheet" href={% static 'css/order.css' %}>
+
+</head>
+
+<body>
+
+
+    <!-- ***** Header Area Start ***** -->
+    <header class="header-area header-sticky  ">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="main-nav navbar-dark " style='position:fixed-top'>
+                        <!-- ***** Logo Start ***** -->
+                        <a href="index.html" class="logo">
+                            Pay - Fees
+                        </a>
+                        <!-- ***** Logo End ***** -->
+                        <!-- ***** Menu Start ***** -->
+                        <ul class="nav">
+                            <li class="scroll-to-section"><a href="{% url 'home' %}" >Home</a></li>
+                                                    
+                          
+                          {% if user.is_authenticated %}
+                            <li class="scroll-to-section"> <a href='{% url "student_dashboard" %}' class="{% if request.resolver_match.url.name == 'student_dashboard' %}class='active' {% endif %}">    Dashboard</a></li>
+
+                            <li class="scroll-to-section">     <p class="mr-sm-2 my-2 text-dark">Hello <span style="text-transform:uppercase;"> <b style='color:salmon'>{{ user.username  }}</b> </span> </p></li>
+                                <a class="btn btn-outline-danger my-2 my-sm-0" type="" href="{% url 'logout' %}"> Logout</a>
+                          
+                          {% else %}
+
+                                <li class="scroll-to-section"><a href="{% url 'login' %}" class="">Log In</a></li>
+
+                          {% endif %}
+                          
+             
+
+                        </ul>
+                        <a class='menu-trigger'>
+                            <span>Menu</span>
+                        </a>
+                        <!-- ***** Menu End ***** -->
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ***** Header Area End ***** -->
+
+
+        <!-- ***** Header Text Start ***** -->
+   
+    <div class="login-form">
+    <form action="{% url 'create_order' %}" method="POST">
+    {% csrf_token %}
+      <fieldset>
+        <legend>
+          <h4 class="modal-title">Select Amount </h4>
+        </legend>
+
+          <div class="gender" >
+        {% comment %} {% for results in data  %} {% endcomment %}
+        
+            <center>
+                <input type="radio" value="p1" id="p1" name="product" />
+                <label for="p1" class="radio" >Your Fees Amount is  {{ data.fees_amount }}</label>
+             </center>
+             
+              {% comment %} <br/>
+                <input type="radio" value="p2" id="p2" name="product" />
+                <label for="p2" class="radio">Product 2 price 2000</label>
+              <br/>
+                <input type="radio" value="p3" id="p3" name="product" />
+                <label for="p3" class="radio">Product 3 price 5000</label>
+              <br/>
+                <input type="radio" value="p4" id="p4" name="product" />
+                <label for="p4" class="radio">Product 4 price 10000</label> {% endcomment %}
+          
+              {% comment %} {% endfor %} {% endcomment %}
+          </div>
+
+      </fieldset>
+      <fieldset>
+      
+<center>
+
+          <h5 style='margin-top:50px' class="modal-title" >Please Re-enter the Details</h5>
+
+      
+        <div style='margin-top:20px' class="form-group">
+          <div>
+            <div  class="form-group">
+            <input class="form-control" type="text" name="name" placeholder="name" required>
+            </div>
+            <div  class="form-group">
+            <input class="form-control" placeholder="phone" type="text" name="phone" required>
+            </div>
+            <div  class="form-group">
+            <input class="form-control" placeholder="email" type="email" name="email" required>
+            </div>
+
+
+          </div>
+
+        </div>
+      </fieldset>
+      
+<center>
+      <button class='btn btn-success sm-6' type="submit" >Create Order</button>
+    </form>
+    </div>
+
+   
+
+
+
+    <!-- ***** Footer Start ***** -->
+    
+    <footer id="contact-us" style='margin-top: -100px;'>
+        <center>
+        <div class="container">
+            <div class="container">
+                <div class="footer-content">
+                    <!-- ***** Contact Form Start ***** -->
+                   
+                            <li data-scroll-reveal="enter left move 30px over 0.6s after 0.5s">
+
+ <img src= {% static "assets/images/183415.svg" %} height="300px" width="320px"  alt="">
+                            </li>
+                </div>
+            </div>
+                        </div></center>
+               
+                    <!-- ***** Contact Form End ***** -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="sub-footer">
+                        <p>Copyright &copy; 2020 Campus Portal 
+
+                        | Designed by Bhavin</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- jQuery -->
+    <script src={% static "assets/js/jquery-2.1.0.min.js" %}></script>
+
+    <!-- Bootstrap -->
+    <script src={% static "assets/js/popper.js" %}></script>
+    <script src={% static "assets/js/bootstrap.min.js" %}></script>
+
+    <!-- Plugins -->
+    <script src={% static "assets/js/owl-carousel.js" %}></script>
+    <script src={% static "assets/js/scrollreveal.min.js" %}></script>
+    <script src={% static "assets/js/waypoints.min.js" %}></script>
+    <script src={% static "assets/js/jquery.counterup.min.js" %}></script>
+    <script src={% static "assets/js/imgfix.min.js" %}></script>
+
+    <!-- Global Init -->
+    <script src={% static  "assets/js/custom.js" %} ></script>
+
+
+<!-- Prevent this page from coming back  on clicking backbutton-->
+{% comment %} <script type="text/javascript" >
+   function preventBack(){window.history.forward();}
+    setTimeout("preventBack()", 0);
+    window.onunload=function(){null};
+</script> {% endcomment %}
+
+
+
+</body>
+</html>

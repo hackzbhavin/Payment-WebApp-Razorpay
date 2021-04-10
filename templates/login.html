@@ -1,0 +1,287 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+    <title>Campus-Portal-Fees</title>
+<!--========================================= For login ======================================================-->
+<!--===============================================================================================-->
+<!--===============================================================================================-->	
+<!--===============================================================================================-->
+<!--===============================================================================================-->
+<!--===============================================================================================-->
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href={% static "login/vendor/animate/animate.css" %}>
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href={% static "login/vendor/css-hamburgers/hamburgers.min.css" %}>
+<!--===============================================================================================-->
+<!--===============================================================================================-->
+<!--===============================================================================================-->	
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href={% static "login/css/util.css" %} >
+	<link rel="stylesheet" type="text/css" href={% static "login/css/main.css" %}>
+<!--===============================================================================================-->
+<!--===============================================================================================-->
+
+
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" type="text/css" href={% static 'assets/css/bootstrap.min.css'%}>
+
+    <link rel="stylesheet" type="text/css" href={% static 'assets/css/font-awesome.css'%}>
+
+    <link rel="stylesheet" href={% static 'assets/css/index.css'%}>
+
+    <link rel="stylesheet" href={% static "assets/css/owl-carousel.css"%}>
+ 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+
+</head>
+
+<style>
+html {
+  overflow-x: initial !important;
+}
+</style>
+
+
+<body>
+
+
+<!-- ***** Header Area Start ***** -->
+
+{% include 'home-navbar.html' %}
+<!-- ***** Header Area End ***** -->
+
+<!--===============================================================================================-->	
+<!--======================================= If User is Authenticated  ========================================================-->	
+
+
+    <!-- ***** Welcome Area Start ***** -->
+    <div class="welcome-area"  style='margin-top: 200px;' id="welcome2">
+
+        <!-- ***** Header Text Start ***** -->
+        <div class="header-text" >
+            <div class="container">
+                <div class="row">
+                    <div class="left-text col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                    
+
+
+                        <div class="limiter" style='margin-top:-100px'>
+                            <div class="container-login100" style='background-color: white;'>
+                                <div class="wrap-login100" style='margin-left:20px'>
+                                     
+                      <form method='post' action='{% url "login" %}' class="login100-form validate-form">
+                        {% csrf_token %}
+                    
+                                        <span class="login100-form-title p-b-26">
+                                            Welcome Ready to Pay Fees?
+                                        </span>
+                                        <span class="login100-form-title p-b-48">
+                                            <i class="zmdi zmdi-card"></i>
+                                        </span>
+                    
+                                        <div class="wrap-input100 validate-input" data-validate = "Valid email is: a@b.c">
+                                            <input class="input100" type="text" name='username' >
+                                            <span class="focus-input100" data-placeholder="Username"></span>
+                                        </div>
+                    
+                                        <div class="wrap-input100 validate-input" data-validate="Enter password">
+                                            <span class="btn-show-pass">
+                                                <i class="zmdi zmdi-eye"></i>
+                                            </span>
+                                            <input class="input100" type="password" name="password">
+                                            <span class="focus-input100" data-placeholder="Password"></span>
+                                        </div>
+
+                    
+                                        <div class="container-login100-form-btn">
+                                            <div class="wrap-login100-form-btn">
+                                                <div class="login100-form-bgbtn"></div>
+                                            
+                                             <button class="login100-form-btn" type="submit" >Log In</button>
+                                            
+                                            </div>
+                                        </div>
+                    <center style='margin-top:10px'>
+                                {% for message in messages %}
+                                        <p id="messages">{{message}}</p>
+                                    {% endfor %}	
+                    
+                                 </center>
+                       
+                                        <div class="text-center p-t-115" style='margin-top:-40px'>
+                                            <span class="txt1">
+                                                Paying Fees through us made Simple, Safe and Secure
+                                            </span>
+                    
+                                            
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+            </div>
+
+                   </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- ***** Header Text End ***** -->
+    </div>
+
+
+<!--===================================== Login End ==========================================================-->	
+
+
+    <!-- ***** Features Big Item Start ***** -->
+    <section class="section" id="about" >
+      <center>  <h1 >We Offer</h1></center>
+
+        <div class="container" style='margin-top: 50px;'>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12"
+                    data-scroll-reveal="enter left move 30px over 0.6s after 0.4s">
+                    <div class="features-item">
+                        <div class="features-icon">
+                            <h2>01</h2>
+                            <img src={% static "assets/images/about-icon-01.png" %} height="150px" width='150px' alt="">
+                            <h4>Master Card Accepted</h4>
+                      
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12"
+                    data-scroll-reveal="enter bottom move 30px over 0.6s after 0.4s">
+                    <div class="features-item">
+                        <div class="features-icon">
+                            <h2>02</h2>
+                            <img src={% static "assets/images/about-icon-02.png" %} style="margin-top:45px" height="100px" width='150px' alt="">
+                            <h4>Visa Card Accepted</h4>
+                        
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12"
+                    data-scroll-reveal="enter right move 30px over 0.6s after 0.4s">
+                    <div class="features-item">
+                        <div class="features-icon">
+                            <h2>03</h2>
+                            <img src={% static "assets/images/about-icon-03.png" %}  height="150px" width='150px'  alt="">
+                            <h4>UPI Accepted</h4>
+                         
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ***** Features Big Item End ***** -->
+
+    <div class="left-image-decor"></div>
+
+    <!-- ***** Features Big Item Start ***** -->
+    <section class="section" id="promotion">
+        <div class="container">
+            <div class="row">
+                <div class="left-image col-lg-5 col-md-12 col-sm-12 mobile-bottom-fix-big"
+                    data-scroll-reveal="enter left move 30px over 0.6s after 0.4s">
+                    <img src={% static "assets/images/tech_flow_2.png" %} width='2000px' class="rounded img-fluid d-block mx-auto" alt="App">
+                </div>
+                <div class="right-text offset-lg-1 col-lg-6 col-md-12 col-sm-12 mobile-bottom-fix">
+                    <ul>
+                        <li data-scroll-reveal="enter right move 30px over 0.6s after 0.4s">
+                            <img src={% static  "assets/images/small-3.png" %} height="200px" width="200px"  alt="">
+                            <div class="text">
+                                <h4>Safe!</h4>
+                                <p>Safe transaction from end to end <a>
+                                contact</a> us for any queries we are always ready to help with issues </p>
+                            </div>
+                        </li>
+                        <li data-scroll-reveal="enter right move 30px over 0.6s after 0.5s">
+                            <img src= {% static  "assets/images/small-1.png" %} height="200px" width="200px"  alt="">
+                            <div class="text">
+                                <h4>Quick Process</h4>
+                                <p>You can trust the payment gateway from our website
+                                 </p>
+                            </div>
+                        </li>
+                        <li data-scroll-reveal="enter right move 30px over 0.6s after 0.6s">
+                            <img src={% static  "assets/images/small-2.png" %} height="200px" width="200px" alt="">
+                            <div class="text">
+                                <h4>Multiple Payment Options</h4>
+                                <p>We have look into every possible payment option</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ***** Features Big Item End ***** -->
+
+
+
+
+    <!-- ***** Footer Start ***** -->
+    
+    <footer id="contact-us" style='margin-top: -100px;'>
+        <center>
+        <div class="container">
+            <div class="container">
+                <div class="footer-content">
+                    <!-- ***** Contact Form Start ***** -->
+                   
+                            <li data-scroll-reveal="enter left move 30px over 0.6s after 0.5s">
+
+ <img src= {% static "assets/images/183415.svg" %} height="300px" width="320px"  alt="">
+                            </li>
+                </div>
+            </div>
+                        </div></center>
+               
+                    <!-- ***** Contact Form End ***** -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="sub-footer">
+                        <p>Copyright &copy; 2020 Campus Portal 
+
+                        | Designed by Bhavin</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- jQuery -->
+    <script src={% static "assets/js/jquery-2.1.0.min.js" %}></script>
+
+    <!-- Bootstrap -->
+    <script src={% static "assets/js/popper.js" %}></script>
+    <script src={% static "assets/js/bootstrap.min.js" %}></script>
+
+    <!-- Plugins -->
+    <script src={% static "assets/js/owl-carousel.js" %}></script>
+    <script src={% static "assets/js/scrollreveal.min.js" %}></script>
+    <script src={% static "assets/js/waypoints.min.js" %}></script>
+    <script src={% static "assets/js/jquery.counterup.min.js" %}></script>
+    <script src={% static "assets/js/imgfix.min.js" %}></script>
+
+    <!-- Global Init -->
+    <script src={% static  "assets/js/custom.js" %} ></script>
+
+</body>
+</html>

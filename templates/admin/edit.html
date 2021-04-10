@@ -1,0 +1,189 @@
+    
+    <!DOCTYPE html>  
+    <html lang="en">  
+    <head>  
+        <meta charset="UTF-8">  
+        <title>Edit Details </title>  
+        {% load staticfiles %}  
+        <link rel="stylesheet" href="{% static 'css/style.css' %}"/>  
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+   
+
+    </head>  
+<style type="text/css">
+td
+{
+    max-width: 550px;
+    max-height: 150px;
+    word-wrap: break-word;
+    
+}
+</style>
+    <body>  
+
+{% include 'admin/admin-navbar.html' %}
+
+    <div class="container-lg">
+    <div class="table-responsive">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-8"><h2>Edit {{ students.name }} <b>Details</b></h2></div>
+            
+                </div>
+            </div>
+
+            
+<div class="table-responsive">
+    <table class="table table-hover table-dark">  
+        <thead >  
+        <tr>  
+          <th class='text-center'>Student ID</th>  
+            <th class='text-center'>ID-Card</th>  
+            <th class='text-center'>Name</th>  
+            <th class='text-center'>Email</th>  
+            <th class='text-center'>Course Year</th>  
+            <th class='text-center'>Batch Year</th>  
+            <th class='text-center'>Branch </th>  
+            <th class='text-center'>Fees</th> 
+        </tr>  
+        </thead>  
+        <tbody>  
+
+        <tr>  
+                      <td class='text-center'>{{ students.id }}</td>  
+            <td class='text-center'>{{ students.reference_id_card_unique_number }}</td>  
+            <td class='text-center' >{{ students.name }}</td>  
+            <td class='text-center'>{{ students.email }}</td>  
+            <td class='text-center'>{{ students.engineering_year }}</td>  
+            <td class='text-center'>{{ students.batch }}</td>  
+            <td class='text-center'>{{ students.branch }}</td>  
+            <td class='text-center'>{{ students.fees_amount }}</td>  
+   
+        </tr>  
+  
+        </tbody>  
+    </table>  
+    </div>
+
+</div>
+    </div>
+
+    </div>
+
+    <center>
+
+
+
+    <form method="POST" class="post-form" action="/admin/update/{{students.id}}">  
+            {% csrf_token %}  
+        <div class="container">  
+    <br>  
+        <div class="form-group row">  
+        <label class="col-sm-1 col-form-label"></label>  
+        <div class="col-sm-4">  
+        <h3>Update Details</h3>  
+        </div>  
+      </div>  
+
+      <div class="form-group row">  
+        <label class="col-sm-2 col-form-label">Id:</label>  
+        <div class="col-sm-4">  
+            <input type="text" name="id" id="" required maxlength="20" value="{{ students.id }}"/>  
+        </div>  
+      </div>  
+
+        <div class="form-group row">  
+        <label class="col-sm-2 col-form-label">Student Id-Card:</label>  
+        <div class="col-sm-4">  
+            <input type="text" name="reference_id_card_unique_number" id="reference_id_card_unique_number" required maxlength="20" value="{{ students.reference_id_card_unique_number }}"/>  
+        </div>  
+      </div>  
+      <div class="form-group row">  
+        <label class="col-sm-2 col-form-label">Student Name:</label>  
+        <div class="col-sm-4">  
+            <input type="text" name="name" id="name" required maxlength="100" value="{{ students.name }}" />  
+        </div>  
+      </div>  
+        <div class="form-group row">  
+        <label class="col-sm-2 col-form-label">Student Email:</label>  
+        <div class="col-sm-4">  
+            <input type="email" name="email" id="email" required maxlength="254" value="{{ students.email }}" />  
+        </div>  
+      </div>  
+
+   <div class="form-group row">  
+        <label class="col-sm-2 col-form-label">Student Course Year:</label>  
+        <div class="col-sm-4">  
+        
+                 <select class="col-sm-8"  name="engineering_year">
+                    <option   value="FIRST YEAR">FIRST YEAR</option>
+                    <option  value="SECOND YEAR">SECOND YEAR</option>
+                    <option  value="THIRD YEAR">THIRD YEAR</option>
+                    <option  value="BACHELOR YEAR">BACHELOR YEAR</option>
+         
+
+                    </select> 
+        
+        </div>  
+      </div>  
+
+   <div class="form-group row">  
+        <label class="col-sm-2 col-form-label">Student Passing Year:</label>  
+        <div class="col-sm-4">  
+            <input type="number" min='2020' name="batch" id="batch" required maxlength="15" value="{{ students.batch }}" />  
+        </div>  
+      </div>  
+
+     <div class="form-group row">  
+        <label class="col-sm-2 col-form-label">Student Branch:</label>  
+        <div class="col-sm-4">  
+                   <select class="col-sm-9" name="branch"> 
+                    <option  value="Information Technology">Information Technology</option>
+                    <option   value="Mechanical Engineering">Mechanical Engineering</option>
+                    <option  value="Computer Engineering">Computer Engineering</option>
+                    <option   value="Electronics Engineering">Electronics Engineering</option>
+                    <option  value="Aerospace Engineering">Aerospace Engineering</option>
+                    <option  value="Chemical Engineering">Chemical Engineering</option>
+                    <option  value="Civil Engineeing">Civil Engineeing</option>
+
+                    </select> 
+   
+   
+        </div>  
+      </div>  
+
+
+
+        <div class="form-group row">  
+        <label class="col-sm-2 col-form-label">Student Fees:</label>  
+        <div class="col-sm-4">  
+            <input type="text" name="fees_amount" id="fees_amount" required maxlength="15" value="{{ students.fees_amount }}" />  
+        </div>  
+      </div>  
+
+
+
+     
+
+
+        <div class="form-group row">  
+        <label class="col-sm-1 col-form-label"></label>  
+        <div class="col-sm-4">  
+        <button type="submit" class="btn btn-success">Update</button>  
+        </div>  
+      </div>  
+        </div>  
+    </form>  
+
+</center>
+
+
+
+    </body>  
+    </html>  
