@@ -1,0 +1,189 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+    <title>Campus-Portal-Fees</title>
+
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" type="text/css" href={% static 'assets/css/bootstrap.min.css'%} >
+
+    <link rel="stylesheet" type="text/css" href={% static 'assets/css/font-awesome.css'%} >
+
+    <link rel="stylesheet" href={% static 'assets/css/index.css'%}>
+
+    <link rel="stylesheet" href={% static "assets/css/owl-carousel.css"%}>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel='stylesheet' href={% static 'css/dashboard.css'  %} >
+
+
+</head>
+
+<body>
+
+
+
+
+    <!-- ***** Header Area Start ***** -->
+{% include 'home-navbar.html' %}
+    <!-- ***** Header Area End ***** -->
+
+
+
+<!--===============================================================================================-->	
+<!--======================================= If User is Authenticated  ========================================================-->	
+
+    <!-- ***** Welcome Area Start ***** -->
+
+        <!-- ***** Header Text Start ***** -->
+<center>
+    <div class="page-content page-container" id="page-content" style='margin-top:50px'>
+    <div class="padding">
+        <div class="row container d-flex justify-content-center">
+            <div class="col-xl-6 col-md-12">
+                <div class="card user-card-full">
+                    <div class="row m-l-0 m-r-0">
+                        <div class="col-sm-4 bg-c-lite-green user-profile">
+                            <div class="card-block text-center text-white">
+
+
+
+
+                            {% if  gender_loop == 'FEMALE' %}
+                            
+                       
+                                <div class="m-b-25"> <img src="{% static 'images/user2.png' %}" class="img-radius" alt="User-Profile-Image"> </div>
+
+                                     {% else %}
+                               
+                                <div class="m-b-25"> <img src="{% static 'images/user.png' %}" class="img-radius" alt="User-Profile-Image"> </div>
+
+                           
+                            {% endif %}
+                               
+                            
+                            <h6 class="f-w-600">{{ user.first_name }} </h6>
+                                <p class='text-white'>{{ user.last_name }}</p> <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
+           
+                                
+                       
+                                <br>
+                             
+                          
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="card-block">
+                                <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Information</h6>
+                                <h7 class="m-b-20 p-b-5 b-b-default f-w-600">Your Details Yet To Be Added</h7>
+                                <br>
+                                <br>
+                                <button class='btn btn-outline-warning my-2 my-sm-0' onclick="typeWriter()">Click me</button>
+                                <br>
+                                <br>
+                         
+                                <h6 id="demo" onload='typeWriter()'></h6>
+
+                                </div>
+
+           
+                                     </div>
+                                </div>
+                      
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+                  
+</center>
+
+
+
+
+    <!-- ***** Footer Start ***** -->
+    
+    <footer id="contact-us" style='margin-top: -100px;'>
+        <center>
+        <div class="container">
+            <div class="container">
+                <div class="footer-content">
+                    <!-- ***** Contact Form Start ***** -->
+                   
+                            <li data-scroll-reveal="enter left move 30px over 0.6s after 0.5s">
+
+ <img src= {% static "assets/images/dash.png" %} height="500px" width="700px"  alt="">
+                            </li>
+                </div>
+            </div>
+                        </div></center>
+               
+                    <!-- ***** Contact Form End ***** -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="sub-footer">
+                        <p>Copyright &copy; 2020 Campus Portal 
+
+                        | Designed by Bhavin</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- jQuery -->
+    <script src={% static "assets/js/jquery-2.1.0.min.js" %}></script>
+
+    <!-- Bootstrap -->
+    <script src={% static "assets/js/popper.js" %}></script>
+    <script src={% static "assets/js/bootstrap.min.js" %}></script>
+
+    <!-- Plugins -->
+    <script src={% static "assets/js/owl-carousel.js" %}></script>
+    <script src={% static "assets/js/scrollreveal.min.js" %}></script>
+    <script src={% static "assets/js/waypoints.min.js" %}></script>
+    <script src={% static "assets/js/jquery.counterup.min.js" %}></script>
+    <script src={% static "assets/js/imgfix.min.js" %}></script>
+
+    <!-- Global Init -->
+    <script src={% static  "assets/js/custom.js" %} ></script>
+
+
+
+
+<script>
+
+var i = 0;
+var txt = 'Hey {{ user.first_name }}! Your Details are Recorded and will be updated soon';
+var speed = 50;
+
+function typeWriter() {
+  if (i < txt.length) {
+    document.getElementById("demo").innerHTML += txt.charAt(i);
+    i++;
+    setTimeout(typeWriter, speed);
+  }
+}
+
+
+</script>
+
+
+</body>
+</html>

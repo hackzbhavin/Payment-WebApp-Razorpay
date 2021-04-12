@@ -18,6 +18,7 @@ from django.db.models import Max
 from django.db import connection
 import json
 import requests
+import datetime
 
 
 
@@ -38,8 +39,6 @@ client = razorpay.Client(auth=("rzp_test_3rwBYBLYRPHJWd", "YEJHecBxRaXbusMTPxuyk
 
 def View_Error(request):
     return render(request, 'error.html')
-
-
 
 #=====================================================================================
 # Registration View 
@@ -87,7 +86,6 @@ def View_Student_Login(request):
                 return redirect('home')
             else:
                 messages.info(request, 'Username OR password is incorrect')
-        
 
 
     # print('else------> of f  * T = F')        
@@ -96,34 +94,61 @@ def View_Student_Login(request):
 
 
 #=====================================================================================
-# for home page
+# for Dummy Dashboard page
 #=====================================================================================
+def View_dummy_dashboard(request):
 
+    store_name_for_gender= request.user.first_name
+    response = requests.get('https://api.genderize.io?name='+ store_name_for_gender)
+    data_of_gender = response.json()
+    print('----->gender---->', data_of_gender['gender'])
+    print('----->name---->', data_of_gender['name'])
+    print()
+    print('===== Gender Detection End ==========')
+
+    if data_of_gender['gender'] == 'male':
+        print('Male')
+        gender_loop = 'MALE'
+
+    elif data_of_gender['gender']== 'female':
+        print('Female')
+        gender_loop = 'FEMALE'
+
+    else:
+        print("Can't Detect")  
+        gender_loop = 'NO'
+
+    context = {'gender_loop':gender_loop }
+    return render(request, 'dummy_dashboard.html', context)
+
+
+#=====================================================================================
+# for Home page
+#=====================================================================================
 
 def View_Home_Page(request):
     current_user = request.user.id
+    student_check = StudentFeesDetail.objects.all()
     is_admin = request.user.is_superuser
-
-    cursor = connection.cursor()
-    cursor.execute("SELECT * from auth_user INNER JOIN studentfeesdetail ON auth_user.id = studentfeesdetail.id ")
-    user_and_fees_inner_join = cursor.fetchall()
-
 
     # print(is_admin)
     if not is_admin:
         if  current_user :
-            student_fees_details = StudentFeesDetail.objects.get(id=current_user)
-    
-            for results in user_and_fees_inner_join:
-            # print(results[0])
-                if current_user == results[0]:
-                    context = {'student_fees_details':student_fees_details, 'result':results}
-                    return render(request, 'home.html', context)
+            for i in student_check :
+                if not StudentFeesDetail.objects.filter(id=current_user):
+                    return redirect('dummy_dashboard')
+                student_fees_details = StudentFeesDetail.objects.filter(id=current_user)
+                print('heyyyyyyyy')
+                cursor = connection.cursor()
+                cursor.execute("SELECT * from auth_user INNER JOIN studentfeesdetail ON auth_user.id = studentfeesdetail.id ")
+                user_and_fees_inner_join = cursor.fetchall()
+                for results in user_and_fees_inner_join:
+                    if current_user == results[0]:
+                        context = {'student_fees_details':student_fees_details, 'result':results}
+                        return render(request, 'home.html', context)
     logout(request) 
     return render(request,'home.html')
 
-    # if student_fees_details.fees_amount == 0:
-    #     messages.info(request, 'Paid Already')
 
 
 #=====================================================================================
@@ -273,7 +298,7 @@ def View_Create_Order(request):
 
             # data that'll be send to the razorpay for
             context['order_id'] = order_id
-
+            
             print('order_Status ====> ', order_id)
             return render(request, 'confirm_order.html', context, {'data': results_studentdetails})
 
@@ -298,15 +323,27 @@ def View_Payment_Status(request):
     }
 
 
+    payment_id = response['razorpay_payment_id']
+    order_id = response['razorpay_order_id']
+
+
+    invoice_create = client.invoice.create()        
+    print(invoice_create)
+    resp = requests.get('https://api.razorpay.com/v1/orders/'+order_id)
+    receipt_json = resp.json()
+
+    print(receipt_json)
+
+
+
     # VERIFYING SIGNATURE
     try:
         print(' **success** ')
         status = client.utility.verify_payment_signature(params_dict)
         print(status)
-        #invoice_create = client.invoice.create(data=params_dict)        
-        return render(request, 'order_summary.html', {'status': 'Payment Successful'})
+        return render(request, 'order_summary.html', {'status': 'Payment is Successful','payment_id':payment_id,'order_id':order_id  })
     except:
-        return render(request, 'order_summary.html', {'status': 'Payment Faliure!!!'})
+        return render(request, 'order_summary.html', {'status': 'Payment is Failed!!!'})
 
 
 
@@ -379,6 +416,32 @@ def students(request):
     
     return render(request, 'admin/add_students.html', {'form': form, 'students':students,'users_all':users_all, 'results':user_and_fees_inner_join })
 
+#=====================================================================================
+#======================= For All transaction Details of Students ==========================
+#=====================================================================================
+
+
+def View_All_Transaction(request):
+
+    resp = client.payment.fetch_all()
+    print('----ALL TRANSACTIONS_---------')
+    details = resp['items']
+
+    for time in details:
+        print()    
+        store_unix_time = datetime.datetime.fromtimestamp(int(time['created_at'])).strftime('%d-%m-%Y %H:%M:%S')
+        # print(store_unix_time)
+    
+    # client = razorpay.Client(auth=("rzp_test_3rwBYBLYRPHJWd", "YEJHecBxRaXbusMTPxuykTZ4"))
+
+
+    # ross = requests.get('https://api.razorpay.com/v1/payments/pay_DG4a4vAWvKrh79/?expand[]=card', auth=(rzp_test_3rwBYBLYRPHJWd, YEJHecBxRaXbusMTPxuykTZ4))
+    
+    # for i in ross:
+    #     print(i)
+    
+    context = {'response':details, 'store_unix_time': store_unix_time}
+    return render(request, 'admin/transactions.html', context)
 
 #=====================================================================================
 #======================= For Admin Show Detail of Students ==========================
@@ -389,6 +452,9 @@ def students(request):
 def show_students(request):  
     students = StudentFeesDetail.objects.all()  
 
+
+    
+    
     #inner join query
     cursor = connection.cursor()
     # cursor.execute("select * from auth_user join studentfeesdetail on auth_user.id=studentfeesdetail.id")

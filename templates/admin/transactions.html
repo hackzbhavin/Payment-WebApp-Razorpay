@@ -1,0 +1,118 @@
+    <!DOCTYPE html>  
+    <html lang="en">  
+    <head>  
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <meta charset="UTF-8">  
+        <title>All Transactions</title>  
+         {% load staticfiles %}  
+        <link rel="stylesheet" href="{% static 'css/style.css' %}"/>  
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    </head>  
+
+<style type="text/css">
+td
+{
+    max-width: 550px;
+    max-height: 150px;
+    word-wrap: break-word;
+    
+}
+</style>
+
+    <body>  
+
+
+
+{% include 'admin/admin-navbar.html' %}
+
+
+
+<div class="container-lg">
+    <div class="table-responsive">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-8"><h2>Transaction <b>Details</b></h2></div>
+                 
+                </div>
+            </div>
+
+    <table class="table-responsive  table table-hover table-dark" >  
+        <thead >  
+        <tr>  
+            {% comment %} <th class='text-center'>Created On</th>   {% endcomment %}
+            <th class='text-center'>Transaction ID</th>  
+            <th class='text-center'>Order-Id</th>  
+            <th class='text-center'>Status</th>  
+
+            <th class='text-center'>Amount </th>  
+            <th class='text-center'>Desc</th>  
+            <th class='text-center'>email</th>  
+            <th class='text-center'>contact </th>  
+            <th class='text-center'>Currency</th>  
+            <th class='text-center'>Method</th>  
+            <th class='text-center'>Card Details</th>  
+            <th class='text-center'>Bank</th>  
+            <th class='text-center'>Wallet</th>  
+            <th class='text-center'>VPA</th>  
+            <th class='text-center'>Auth code</th>  
+
+        </tr>  
+        </thead>  
+        <tbody >  
+    {% for resp in response %}
+        <tr>  
+            {% comment %} <td class='text-center'>{{ store_unix_time }}</td>   {% endcomment %}
+            <td class='text-center'>{{ resp.id }}</td>  
+            <td class='text-center'>{{ resp.order_id }}</td>  
+           
+            {% if resp.status == 'captured' %}
+     <td class='text-center text-success' >{{ resp.status}}</td>  
+
+           {% else %}
+        <td class='text-center text-danger' >{{ resp.status }}</td>  
+
+           {% endif %}
+
+            <td class='text-center' id='amount'> {{resp.amount}}</td>  
+            <td class='text-center' >{{ resp.description }}</td>  
+            <td class='text-center' >{{ resp.email }}</td>  
+            <td class='text-center' >{{ resp.contact }}</td>  
+            
+            <td class='text-center' >{{ resp.currency }}</td>  
+            <td class='text-center' >{{ resp.method }}</td>  
+            <td class='text-center' >{{ resp.card_id }}</td>  
+            <td class='text-center' >{{ resp.bank }}</td>  
+            <td class='text-center' >{{ resp.wallet }}</td>  
+            <td class='text-center' >{{ resp.vpa }}</td>  
+            <td class='text-center' >{{ resp.acquirer_data.auth_code }}</td>  
+
+          
+    
+    
+
+
+    
+        </tr>  
+  {% endfor %}    
+        </tbody>  
+    </table>  
+    </div>
+    </div>
+   </div>
+   
+   {% comment %} <script>
+
+number = resp.amount
+var result = number.toString().slice(0, -2);
+document.getElementById('amount').innerHTML = result
+
+   </script> {% endcomment %}
+   
+    </body>  
+    </html>  
