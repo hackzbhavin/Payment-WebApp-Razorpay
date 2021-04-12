@@ -51,10 +51,10 @@ def View_Student_Register(request):
         form = CreateUserForm()
         if request.method == 'POST':
             form = CreateUserForm(request.POST)
-            print('else:::::::::')
+            # print('else:::::::::')
             # print(form)
             if form.is_valid():
-                print('inside if register form is valid')
+                # print('inside if register form is valid')
                 form.save()
                 user = form.cleaned_data.get('username')
                 messages.success(request, 'Account was created for ' + user)
@@ -79,7 +79,7 @@ def View_Student_Login(request):
             username = request.POST.get('username')
             password =request.POST.get('password')
             user = authenticate(request, username=username, password=password)
-            print('post method---->', username, password)
+            # print('post method---->', username, password)
             if user is not None:
                 login(request, user)
                 print('--------> user is not none =====> ',user.id)
@@ -426,19 +426,19 @@ def View_All_Transaction(request):
     resp = client.payment.fetch_all()
     print('----ALL TRANSACTIONS_---------')
     details = resp['items']
-
+    print(details)
+    # To convert time in normal format
     for time in details:
         print()    
         store_unix_time = datetime.datetime.fromtimestamp(int(time['created_at'])).strftime('%d-%m-%Y %H:%M:%S')
-        # print(store_unix_time)
+        print(store_unix_time)
     
-    # client = razorpay.Client(auth=("rzp_test_3rwBYBLYRPHJWd", "YEJHecBxRaXbusMTPxuykTZ4"))
-
-
-    # ross = requests.get('https://api.razorpay.com/v1/payments/pay_DG4a4vAWvKrh79/?expand[]=card', auth=(rzp_test_3rwBYBLYRPHJWd, YEJHecBxRaXbusMTPxuykTZ4))
     
-    # for i in ross:
-    #     print(i)
+    # For card details extraction
+    # for d in details:
+    #     ross = requests.get('https://api.razorpay.com/v1/payments/'+d['id']+'/?expand[]=card', auth=('rzp_test_3rwBYBLYRPHJWd', 'YEJHecBxRaXbusMTPxuykTZ4'))
+    #     for i in ross:
+    #         details=i
     
     context = {'response':details, 'store_unix_time': store_unix_time}
     return render(request, 'admin/transactions.html', context)
@@ -502,8 +502,8 @@ def edit_students(request, id):
 def update_students(request, id):  
     students = StudentFeesDetail.objects.get(id=id)  
     form = StudentFeeDetailsForm(request.POST, instance = students) 
-    for i in form:
-        print(i)
+    # for i in form:
+    #     print(i)
 
     if form.is_valid(): 
         print('form is valid --------=========') 
