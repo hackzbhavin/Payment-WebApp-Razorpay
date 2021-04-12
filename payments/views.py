@@ -327,12 +327,12 @@ def View_Payment_Status(request):
     order_id = response['razorpay_order_id']
 
 
-    invoice_create = client.invoice.create()        
-    print(invoice_create)
-    resp = requests.get('https://api.razorpay.com/v1/orders/'+order_id)
-    receipt_json = resp.json()
+    # invoice_create = client.invoice.create()        
+    # print(invoice_create)
+    # resp = requests.get('https://api.razorpay.com/v1/orders/'+order_id)
+    # receipt_json = resp.json()
 
-    print(receipt_json)
+    # print(receipt_json)
 
 
 
