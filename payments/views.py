@@ -21,7 +21,6 @@ import requests
 import datetime
 
 
-
 #razorpay 
 import razorpay
 
@@ -29,8 +28,7 @@ import razorpay
 # razorpay api
 #=====================================================================================
 
-client = razorpay.Client(auth=("rzp_test_3rwBYBLYRPHJWd", "YEJHecBxRaXbusMTPxuykTZ4"))
-
+client = razorpay.Client(auth=("rzp_test_2pdcS0Lko7Kku4", "pYYU47RJfE4Tq7dM1CqlgSXB"))
 
 #=====================================================================================
 # Error View Page
@@ -39,6 +37,7 @@ client = razorpay.Client(auth=("rzp_test_3rwBYBLYRPHJWd", "YEJHecBxRaXbusMTPxuyk
 
 def View_Error(request):
     return render(request, 'error.html')
+
 
 #=====================================================================================
 # Registration View 
@@ -51,10 +50,10 @@ def View_Student_Register(request):
         form = CreateUserForm()
         if request.method == 'POST':
             form = CreateUserForm(request.POST)
-            # print('else:::::::::')
+            #print('else:::::::::')
             # print(form)
             if form.is_valid():
-                # print('inside if register form is valid')
+                #print('inside if register form is valid')
                 form.save()
                 user = form.cleaned_data.get('username')
                 messages.success(request, 'Account was created for ' + user)
@@ -79,14 +78,14 @@ def View_Student_Login(request):
             username = request.POST.get('username')
             password =request.POST.get('password')
             user = authenticate(request, username=username, password=password)
-            # print('post method---->', username, password)
+            #print('post method---->', username, password)
             if user is not None:
                 login(request, user)
                 print('--------> user is not none =====> ',user.id)
                 return redirect('home')
             else:
                 messages.info(request, 'Username OR password is incorrect')
-
+        
 
     # print('else------> of f  * T = F')        
     context = {}
@@ -94,10 +93,10 @@ def View_Student_Login(request):
 
 
 #=====================================================================================
-# for Dummy Dashboard page
+# for dummy_dashboard page
 #=====================================================================================
 def View_dummy_dashboard(request):
-
+    
     store_name_for_gender= request.user.first_name
     response = requests.get('https://api.genderize.io?name='+ store_name_for_gender)
     data_of_gender = response.json()
@@ -123,7 +122,7 @@ def View_dummy_dashboard(request):
 
 
 #=====================================================================================
-# for Home page
+# for home page
 #=====================================================================================
 
 def View_Home_Page(request):
@@ -135,16 +134,16 @@ def View_Home_Page(request):
     if not is_admin:
         if  current_user :
             for i in student_check :
-                if not StudentFeesDetail.objects.filter(id=current_user):
+                if not StudentFeesDetail.objects.filter(id=current_user) :
+                    
                     return redirect('dummy_dashboard')
-                student_fees_details = StudentFeesDetail.objects.filter(id=current_user)
-                print('heyyyyyyyy')
+                    print('heyyyyyyyy')
                 cursor = connection.cursor()
                 cursor.execute("SELECT * from auth_user INNER JOIN studentfeesdetail ON auth_user.id = studentfeesdetail.id ")
                 user_and_fees_inner_join = cursor.fetchall()
                 for results in user_and_fees_inner_join:
                     if current_user == results[0]:
-                        context = {'student_fees_details':student_fees_details, 'result':results}
+                        context = {'StudentFeesDetail':StudentFeesDetail, 'result':results}
                         return render(request, 'home.html', context)
     logout(request) 
     return render(request,'home.html')
@@ -265,6 +264,7 @@ def View_Create_Order(request):
         name = request.POST.get('name')
         phone = request.POST.get('phone')
         email = request.POST.get('email')
+        address = request.POST.get('address')
         product = request.POST.get('product')
 
         results_studentdetails = StudentFeesDetail.objects.get(id=current_user)
@@ -277,6 +277,7 @@ def View_Create_Order(request):
 
     
         order_currency = 'INR'
+        
         order_receipt = 'order_rcptid_11'
         notes = {
             'Shipping address': 'Pune, Maharashtra'}
@@ -298,20 +299,22 @@ def View_Create_Order(request):
 
             # data that'll be send to the razorpay for
             context['order_id'] = order_id
-            
+
             print('order_Status ====> ', order_id)
-            return render(request, 'confirm_order.html', context, {'data': results_studentdetails})
+            return render(request, 'confirm_order.html', context)
+
+            #return render(request, 'confirm_order.html', context)
+
 
 
         # print('\n\n\nresponse: ',response, type(response))
     return HttpResponse('<h1>Error in  create order function</h1>')
 
-
 #=====================================================================================
 # Payment Page Summary 
 #=====================================================================================
 def View_Payment_Status(request):
-
+    print('===> Inside Payment Status <====')
     response = request.POST
     print('response======>', response['razorpay_payment_id'])
     print('response======>', response['razorpay_order_id'])
@@ -341,10 +344,9 @@ def View_Payment_Status(request):
         print(' **success** ')
         status = client.utility.verify_payment_signature(params_dict)
         print(status)
-        return render(request, 'order_summary.html', {'status': 'Payment is Successful','payment_id':payment_id,'order_id':order_id  })
+        return render(request, 'order_summary.html', {'status': 'Payment is Successful','payment_id':payment_id,'order_id':order_id }) 
     except:
         return render(request, 'order_summary.html', {'status': 'Payment is Failed!!!'})
-
 
 
 
@@ -390,6 +392,9 @@ def View_Admin_Logout(request):
 
 @permission_required('is_superuser',  login_url='admin_login')
 def students(request):
+
+    print('===View All Students Details====')
+
     users_all = User.objects.all()
     students = StudentFeesDetail.objects.all().order_by('-id')[0]
 
@@ -416,45 +421,62 @@ def students(request):
     
     return render(request, 'admin/add_students.html', {'form': form, 'students':students,'users_all':users_all, 'results':user_and_fees_inner_join })
 
+
 #=====================================================================================
 #======================= For All transaction Details of Students ==========================
 #=====================================================================================
 
 
 def View_All_Transaction(request):
-
+    # print('=== View_All_Transaction ====')
     resp = client.payment.fetch_all()
     print('----ALL TRANSACTIONS_---------')
     details = resp['items']
-    print(details)
+    #print(details)
     # To convert time in normal format
     for time in details:
         print()    
         store_unix_time = datetime.datetime.fromtimestamp(int(time['created_at'])).strftime('%d-%m-%Y %H:%M:%S')
-        print(store_unix_time)
-    
+        #print(store_unix_time)
+
     
     # For card details extraction
     # for d in details:
     #     ross = requests.get('https://api.razorpay.com/v1/payments/'+d['id']+'/?expand[]=card', auth=('rzp_test_3rwBYBLYRPHJWd', 'YEJHecBxRaXbusMTPxuykTZ4'))
     #     for i in ross:
     #         details=i
-    
+
     context = {'response':details, 'store_unix_time': store_unix_time}
     return render(request, 'admin/transactions.html', context)
+
+
+#=====================================================================================
+#======================= For All Payment Orders Details of Students ==========================
+#=====================================================================================
+
+def View_All_Orders(request):
+    resp = client.order.fetch_all()
+    #print(resp)
+    #for i in resp :
+    #    print(i)
+    orders=resp['items']
+    #for i in orders:
+    #    print(i[5])
+
+    context = {'response':orders}
+    return render(request, 'admin/allorders.html',context)
 
 #=====================================================================================
 #======================= For Admin Show Detail of Students ==========================
 #=====================================================================================
 
-
-@permission_required('is_superuser',  login_url='admin_login')
+#@permission_required('is_superuser',  login_url='admin_login')
 def show_students(request):  
     students = StudentFeesDetail.objects.all()  
 
 
-    
-    
+
+
     #inner join query
     cursor = connection.cursor()
     # cursor.execute("select * from auth_user join studentfeesdetail on auth_user.id=studentfeesdetail.id")
@@ -502,8 +524,8 @@ def edit_students(request, id):
 def update_students(request, id):  
     students = StudentFeesDetail.objects.get(id=id)  
     form = StudentFeeDetailsForm(request.POST, instance = students) 
-    # for i in form:
-    #     print(i)
+    #for i in form:
+        #print(i)
 
     if form.is_valid(): 
         print('form is valid --------=========') 
@@ -524,4 +546,20 @@ def delete_students(request, id):
     students = StudentFeesDetail.objects.get(id=id)  
     students.delete()  
     return redirect("../show")  
+
+
+#=====================================================================================
+#======================= Capture payments for admin ==========================
+#=====================================================================================
+
+'''def capture_payment(request, id, amount):
+    print(id)
+    payment_id = id
+    payment_amount = amount
+    payment_currency = "INR"
+    if request.method == "POST":
+        form = client.payment.fetch(id=id)
+        resp = client.payment.capture(payment_id, payment_amount, {"currency":payment_currency})
+    return redirect("../transactions")'''
+
 
