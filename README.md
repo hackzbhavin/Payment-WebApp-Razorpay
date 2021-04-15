@@ -56,6 +56,14 @@ Push project to existing repositary without changing existing code with new bran
 
 ----
 ----
+##### Full Flex Responsiveness News Page also added to integrate with other connected project
+
+![Image of UI](static/assets/images/all-devices.png)
+
+
+----
+----
+----
 
 #### Modes of Payment
 
