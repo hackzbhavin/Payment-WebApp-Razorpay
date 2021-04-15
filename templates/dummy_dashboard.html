@@ -169,24 +169,24 @@
 
 <script>
 
-var i = 0;
-var txt = 'Hey {{ user.first_name }}! Your Details are Recorded and will be updated soon. In 30 Seconds we will make you logout';
-var speed = 50;
+    var i = 0;
+    var txt = 'Hey {{ user.first_name }}! Your Details are Recorded and will be updated soon. In 30 Seconds we will make you logout';
+    var speed = 50;
 
-function typeWriter() {
-  if (i < txt.length) {
-    document.getElementById("demo").innerHTML += txt.charAt(i);
-    i++;
-    setTimeout(typeWriter, speed);
-  }
-}
+    function typeWriter(){
+    if (i < txt.length) {
+        document.getElementById("demo").innerHTML += txt.charAt(i);
+        i++;
+        setTimeout(typeWriter, speed);
+        }
+    }
 
-  function redirect() {
-		setTimeout(function(){ 
-				window.location.replace("{% url 'logout'%}");
-			}
-			, 30000);	
-		}
+    function redirect() {
+            setTimeout(function(){ 
+                    window.location.replace("{% url 'logout'%}");
+                }
+                , 30000);	
+            }
 </script>
 
 

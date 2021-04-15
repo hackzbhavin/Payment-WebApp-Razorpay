@@ -22,7 +22,7 @@
 
 	
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-		<a class="navbar-brand" href="#">News-Bar</a>
+		<a class="navbar-brand" href="">News-Bar</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
 			aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
@@ -65,6 +65,9 @@
 		<li class="nav-item" role="presentation">
 		  <a class="nav-link" id="contact-tab" data-toggle="tab" href="#CHANELS" role="tab" aria-controls="contact" aria-selected="false">CHANNELS</a>
 		</li>
+		<li class="nav-item" role="presentation">
+			<a class="nav-link" id="contact-tab" data-toggle="tab" href="#NEWSPAPERS" role="tab" aria-controls="contact" aria-selected="false">TOP NEWS-JOURNALS</a>
+		  </li>
 	  </ul>
 	
 	  <!--- ================================================================================================ --->
@@ -92,7 +95,7 @@
 						<div class="card ">
 							<img src="{{ top_headlines.urlToImage }}" class="card-img-top" alt="...">
 							<div class="card-body ">
-							<h5 class="card-title ">{{ top_headlines.data }}</h5>
+							<h5 class="card-title ">{{ top_headlines.title }}</h5>
 							<h7 class="card-title text-warning">{{ top_headlines.source.name }}</h7>
 							<p class="card-text ">{{top_headlines.content}}</p>
 							<a href="{{ top_headlines.url }}" class="card-link">Read More</a>		</div>
@@ -123,7 +126,7 @@
 									<div class="card ">	
 										<img src="{{ tech.urlToImage }}" class="card-img-top" alt="...">
 										<div class="card-body ">
-										<h5 class="card-title ">{{ tech.data }}</h5>
+										<h5 class="card-title ">{{ tech.title }}</h5>
 										<h7 class="card-title text-warning">{{ tech.source.name }}</h7>
 										<p class="card-text ">{{tech.content}}</p>
 										<a href="{{ tech.url }}" class="card-link">Read More</a>		</div>
@@ -159,7 +162,7 @@
 									<div class="card ">	
 										<img src="{{ sci.urlToImage }}" class="card-img-top" alt="...">
 										<div class="card-body ">
-										<h5 class="card-title ">{{ sci.data }}</h5>
+										<h5 class="card-title ">{{ sci.title }}</h5>
 										<h7 class="card-title text-warning">{{ sci.source.name }}</h7>
 										<p class="card-text ">{{sci.content}}</p>
 										<a href="{{ sci.url }}" class="card-link">Read More</a>		</div>
@@ -193,7 +196,7 @@
 							<div class="card ">	
 								<img src="{{ buss.urlToImage }}" class="card-img-top" alt="...">
 								<div class="card-body ">
-								<h5 class="card-title ">{{ buss.data }}</h5>
+								<h5 class="card-title ">{{ buss.title }}</h5>
 								<h7 class="card-title text-warning">{{ buss.source.name }}</h7>
 								<p class="card-text ">{{buss.content}}</p>
 								<a href="{{ buss.url }}" class="card-link">Read More</a>		</div>
@@ -227,7 +230,7 @@
 							<div class="card ">	
 								<img src="{{ heal.urlToImage }}" class="card-img-top" alt="...">
 								<div class="card-body ">
-								<h5 class="card-title ">{{ heal.data }}</h5>
+								<h5 class="card-title ">{{ heal.title }}</h5>
 								<h7 class="card-title text-warning">{{ heal.source.name }}</h7>
 								<p class="card-text ">{{heal.content}}</p>
 								<a href="{{ heal.url }}" class="card-link">Read More</a>		</div>
@@ -259,7 +262,7 @@
 							<div class="card ">	
 								<img src="{{ sport.urlToImage }}" class="card-img-top" alt="...">
 								<div class="card-body ">
-								<h5 class="card-title ">{{ sport.data }}</h5>
+								<h5 class="card-title ">{{ sport.title }}</h5>
 								<h7 class="card-title text-warning">{{ sport.source.name }}</h7>
 								<p class="card-text ">{{sport.content}}</p>
 								<a href="{{ sport.url }}" class="card-link">Read More</a>		</div>
@@ -333,8 +336,57 @@
 				</div>
 	
 	
-	</div>
 	
+	
+	  <!--- ================================================================================================ --->
+				<div class="tab-pane fade" id="NEWSPAPERS" role="tabpanel" aria-labelledby="contact-tab">
+				
+								<div class="jumbotron jumbotron-fluid">
+									<div class="container">
+										<h1 class="display-4">Famous NewsPapers</h1>
+										<p class="lead">NewsPapers!! </p>
+									</div>
+								</div>
+
+							<div class="row row-cols-1 row-cols-md-3">
+								{% for paper in times_of_india.articles %}
+
+								<div class="card ">	
+									<img src="{{ paper.urlToImage }}" class="card-img-top" alt="...">
+									<div class="card-body ">
+									<h5 class="card-title ">{{ paper.title }}</h5>
+									<h7 class="card-title text-warning">{{ paper.source.name }}</h7>
+									<p class="card-text ">{{paper.content}}</p>
+									<a href="{{ paper.url }}" class="card-link">Read More</a></div>
+									<div class="card-footer">
+									<small class="text-muted">{{ paper.publishedAt }}</small>
+									</div>
+							</div>
+							
+							{% endfor %}
+						</div>
+							
+							<div class="row row-cols-1 row-cols-md-3">
+								{% for bbcn in bbc_news.articles %}
+
+								<div class="card ">	
+									<img src="{{ bbcn.urlToImage }}" class="card-img-top" alt="...">
+									<div class="card-body ">
+									<h5 class="card-title ">{{ bbcn.title }}</h5>
+									<h7 class="card-title text-warning">{{ bbcn.source.name }}</h7>
+									<p class="card-text ">{{bbcn.content}}</p>
+									<a href="{{ bbcn.url }}" class="card-link">Read More</a></div>
+									<div class="card-footer">
+									<small class="text-muted">{{ bbcn.publishedAt }}</small>
+									</div>
+							</div>
+							
+							{% endfor %}
+						</div>
+
+
+			
+</div>
 	  <!--- ================================================================================================ --->
 	  <!--- ================================================================================================ --->
 	  <!--- ================================================================================================ --->

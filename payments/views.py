@@ -406,7 +406,7 @@ def View_Add_Students(request):
 #====> For All transaction Details of Students 
 #=====================================================================================
 
-
+@permission_required('is_superuser',  login_url='admin_login')
 def View_All_Transactions(request):
     # print('=== View_All_Transaction ====')
     resp = client.payment.fetch_all()  
@@ -426,6 +426,7 @@ def View_All_Transactions(request):
 #====> For All Orders Details of Students Payments after Captured 
 #=====================================================================================
 
+@permission_required('is_superuser',  login_url='admin_login')
 def View_All_Orders(request):
     resp = client.order.fetch_all()
     orders=resp['items']
@@ -534,6 +535,13 @@ def View_News(request):
     science_ind = requests.get('https://newsapi.org/v2/top-headlines?country=in&category=science&apiKey='+apikey)
     science = science_ind.json()
 
+    #papers
+    paper_times_of_india = requests.get('https://newsapi.org/v2/top-headlines?sources=the-times-of-india&apiKey='+apikey)
+    times_of_india = paper_times_of_india.json()
+
+    bbc_newsp = requests.get('https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey='+apikey)
+    bbc_news = bbc_newsp.json()
+
     context = {
         'top_headlines':top_headlines,
         'channels':channels,
@@ -541,6 +549,8 @@ def View_News(request):
         'technology':tech,
         'business':business,
         'health':health,
-        'science':science
+        'science':science,
+        'times_of_india':times_of_india,
+        'bbc_news':bbc_news,
         }
     return render(request,'news.html', context)  
