@@ -21,27 +21,25 @@ import requests
 import datetime
 
 
-
 #razorpay 
 import razorpay
 
 #=====================================================================================
-# razorpay api
+#====> razorpay api
 #=====================================================================================
 
-client = razorpay.Client(auth=("rzp_test_3rwBYBLYRPHJWd", "YEJHecBxRaXbusMTPxuykTZ4"))
+client = razorpay.Client(auth=("rzp_test_2pdcS0Lko7Kku4", "pYYU47RJfE4Tq7dM1CqlgSXB"))
 
 
 #=====================================================================================
-# Error View Page
+#====> Error View Page
 #=====================================================================================
-
 
 def View_Error(request):
     return render(request, 'error.html')
 
 #=====================================================================================
-# Registration View 
+#====> Registration View 
 #=====================================================================================
 
 def View_Student_Register(request):
@@ -65,7 +63,7 @@ def View_Student_Register(request):
 
 
 #=====================================================================================
-# Login View 
+#====> Login View 
 #=====================================================================================
 
 def View_Student_Login(request):
@@ -94,7 +92,7 @@ def View_Student_Login(request):
 
 
 #=====================================================================================
-# for Dummy Dashboard page
+#====> for Dummy Dashboard page
 #=====================================================================================
 def View_dummy_dashboard(request):
 
@@ -123,7 +121,7 @@ def View_dummy_dashboard(request):
 
 
 #=====================================================================================
-# for Home page
+#====> for Home page
 #=====================================================================================
 
 def View_Home_Page(request):
@@ -152,7 +150,7 @@ def View_Home_Page(request):
 
 
 #=====================================================================================
-# Dashboard for student
+#====> Dashboard for student
 #=====================================================================================
 
 @login_required(login_url='login')
@@ -204,7 +202,7 @@ def View_Student_Dashboard_Details(request):
 
 
 #=====================================================================================
-# for changing password
+#====> for changing password
 #=====================================================================================
 
 @login_required(login_url='login')
@@ -225,7 +223,7 @@ def View_Change_Password(request):
 
 
 #=====================================================================================
-# order confirmation page
+#====> Order confirmation page
 #=====================================================================================
 
 @login_required(login_url='login')
@@ -241,7 +239,7 @@ def View_Order_Page(request):
 
 
 #=====================================================================================
-# For Login
+#====> For Login
 #=====================================================================================
 # @login_required(login_url='login')
 def View_Student_Logout(request):
@@ -249,9 +247,8 @@ def View_Student_Logout(request):
     return redirect('home')        
 
 
-
 #=====================================================================================
-# Create order page comes after order.html page
+#====> Create order page comes after order.html page
 #=====================================================================================
 
 def View_Create_Order(request):
@@ -298,20 +295,20 @@ def View_Create_Order(request):
 
             # data that'll be send to the razorpay for
             context['order_id'] = order_id
-            
+
             print('order_Status ====> ', order_id)
-            return render(request, 'confirm_order.html', context, {'data': results_studentdetails})
+            return render(request, 'confirm_order.html', context)
+            #return render(request, 'confirm_order.html', context, {'data': results_studentdetails})
 
 
         # print('\n\n\nresponse: ',response, type(response))
     return HttpResponse('<h1>Error in  create order function</h1>')
 
-
 #=====================================================================================
-# Payment Page Summary 
+#====> Payment Page Summary 
 #=====================================================================================
 def View_Payment_Status(request):
-
+    print('===> Inside Payment Status <====')
     response = request.POST
     print('response======>', response['razorpay_payment_id'])
     print('response======>', response['razorpay_order_id'])
@@ -326,16 +323,6 @@ def View_Payment_Status(request):
     payment_id = response['razorpay_payment_id']
     order_id = response['razorpay_order_id']
 
-
-    # invoice_create = client.invoice.create()        
-    # print(invoice_create)
-    # resp = requests.get('https://api.razorpay.com/v1/orders/'+order_id)
-    # receipt_json = resp.json()
-
-    # print(receipt_json)
-
-
-
     # VERIFYING SIGNATURE
     try:
         print(' **success** ')
@@ -347,12 +334,10 @@ def View_Payment_Status(request):
 
 
 
-
 #============================================================
-#======================= For admin ==========================
-
+#====> For admin 
 #=====================================================================================
-#======================= For admin login ==========================
+#====> For admin login 
 #=====================================================================================
 
 def View_Admin_Login(request):
@@ -376,7 +361,7 @@ def View_Admin_Login(request):
 
 
 #=====================================================================================
-#======================= For admin logout ==========================
+#====> For admin logout 
 #=====================================================================================
 
 def View_Admin_Logout(request):
@@ -385,20 +370,21 @@ def View_Admin_Logout(request):
 
 
 #=====================================================================================
-#======================= For Adding Students Data ==========================
+#====> For Adding Students Data
 #=====================================================================================
 
 @permission_required('is_superuser',  login_url='admin_login')
-def students(request):
+def View_Add_Students(request):
+    print('===View All Students Details====')
+
     users_all = User.objects.all()
     students = StudentFeesDetail.objects.all().order_by('-id')[0]
 
     #inner join query
     cursor = connection.cursor()
-    # cursor.execute("select * from auth_user join studentfeesdetail on auth_user.id=studentfeesdetail.id")
     cursor.execute("SELECT * from auth_user INNER JOIN studentfeesdetail ON auth_user.id = studentfeesdetail.id ")
     user_and_fees_inner_join = cursor.fetchall()
-    # print(results)
+
 
     if request.method == 'POST':
         form = StudentFeeDetailsForm(request.POST)
@@ -417,93 +403,74 @@ def students(request):
     return render(request, 'admin/add_students.html', {'form': form, 'students':students,'users_all':users_all, 'results':user_and_fees_inner_join })
 
 #=====================================================================================
-#======================= For All transaction Details of Students ==========================
+#====> For All transaction Details of Students 
 #=====================================================================================
 
 
-def View_All_Transaction(request):
-
-    resp = client.payment.fetch_all()
-    print('----ALL TRANSACTIONS_---------')
+def View_All_Transactions(request):
+    # print('=== View_All_Transaction ====')
+    resp = client.payment.fetch_all()  
     details = resp['items']
-    print(details)
+ 
     # To convert time in normal format
-    for time in details:
-        print()    
-        store_unix_time = datetime.datetime.fromtimestamp(int(time['created_at'])).strftime('%d-%m-%Y %H:%M:%S')
-        print(store_unix_time)
-    
-    
-    # For card details extraction
-    # for d in details:
-    #     ross = requests.get('https://api.razorpay.com/v1/payments/'+d['id']+'/?expand[]=card', auth=('rzp_test_3rwBYBLYRPHJWd', 'YEJHecBxRaXbusMTPxuykTZ4'))
-    #     for i in ross:
-    #         details=i
-    
-    context = {'response':details, 'store_unix_time': store_unix_time}
+    # for time in details:
+    #     print()    
+    #     store_unix_time = datetime.datetime.fromtimestamp(int(time['created_at'])).strftime('%d-%m-%Y %H:%M:%S')
+    #     # print(store_unix_time)
+
+
+    context = {'response':details}
     return render(request, 'admin/transactions.html', context)
 
 #=====================================================================================
-#======================= For Admin Show Detail of Students ==========================
+#====> For All Orders Details of Students Payments after Captured 
+#=====================================================================================
+
+def View_All_Orders(request):
+    resp = client.order.fetch_all()
+    orders=resp['items']
+    context = {'response':orders}
+    return render(request, 'admin/allorders.html',context)
+
+#=====================================================================================
+#====> For Admin Show Detail of Students 
 #=====================================================================================
 
 
 @permission_required('is_superuser',  login_url='admin_login')
-def show_students(request):  
+def View_Show_Students(request):  
     students = StudentFeesDetail.objects.all()  
-
-
-    
     
     #inner join query
     cursor = connection.cursor()
-    # cursor.execute("select * from auth_user join studentfeesdetail on auth_user.id=studentfeesdetail.id")
     cursor.execute("SELECT * from auth_user INNER JOIN studentfeesdetail ON auth_user.id = studentfeesdetail.id ")
     user_and_fees_inner_join = cursor.fetchall()
-
-
 
     return render(request,"admin/show.html",{'students':students, 'results':user_and_fees_inner_join})  
 
 
 #=====================================================================================
-#======================= For Admin Edit Student Details ==========================
+#====> For Admin Edit Student Details 
 #=====================================================================================
 
 @permission_required('is_superuser',  login_url='admin_login')
-def edit_students(request, id):
+def View_Edit_Students(request, id):
     print('=====>edit===>', id)
 
   
     students = StudentFeesDetail.objects.get(id=id)  
     return render(request,'./admin/edit.html', {'students':students})  
 
+
+
 #=====================================================================================
-#======================= For admin To Update Student Details==========================
+#====> For admin To Update Student Details
 #=====================================================================================
 
 @permission_required('is_superuser',  login_url='admin_login')
-# def update_students(request, id):
-#     print('=====>', id)  
-#     students = StudentFeesDetail.objects.get(id=id)  
-#     print('=========>students <=========',students.id)
-#     print()
-#     form = StudentFeeDetailsForm(request.POST, instance = students)  
-
-
-#     print(form)
-#     if form.is_valid():  
-#         form.save()
-#         print('=======> valif form ')  
-#         return redirect("show")  
-#     return render(request, 'admin/edit.html', {'students': students})  
-
-
-def update_students(request, id):  
+def View_Update_Students(request, id):  
     students = StudentFeesDetail.objects.get(id=id)  
     form = StudentFeeDetailsForm(request.POST, instance = students) 
-    # for i in form:
-    #     print(i)
 
     if form.is_valid(): 
         print('form is valid --------=========') 
@@ -516,12 +483,64 @@ def update_students(request, id):
 
 
 #=====================================================================================
-#======================= For admin to delete the students ==========================
+#====> For admin to delete the students 
 #=====================================================================================
 
 @permission_required('is_superuser',  login_url='admin_login')
-def delete_students(request, id):  
+def View_Delete_Students(request, id):  
     students = StudentFeesDetail.objects.get(id=id)  
     students.delete()  
     return redirect("../show")  
 
+#=====================================================================================
+#====> For news
+#=====================================================================================
+# api key from api-news
+apikey = '286645ed941444c89f7d715940a1b527'
+
+def View_News(request):
+    #headlines
+    url = ('https://newsapi.org/v2/top-headlines?'
+       'country=in&'
+       'apiKey='+apikey)
+    response = requests.get(url)
+    top_headlines = response.json()
+    
+    # channel
+    news_channels = ('https://newsapi.org/v2/sources?apiKey='+apikey)
+    response = requests.get(news_channels)
+    channels = response.json()
+    
+    #sports
+    sports_ind = ('https://newsapi.org/v2/top-headlines?country=in&category=sports&apiKey='+apikey)
+    response = requests.get(sports_ind)
+    sports = response.json()
+
+
+    #technology
+    tech_ind = ('https://newsapi.org/v2/top-headlines?country=in&category=technology&apiKey='+apikey)
+    response = requests.get(tech_ind)
+    tech = response.json()
+
+    #business
+    business_ind = requests.get('https://newsapi.org/v2/top-headlines?country=in&category=business&apiKey='+apikey)
+    business = business_ind.json()
+
+    #health
+    health_ind = requests.get('https://newsapi.org/v2/top-headlines?country=in&category=health&apiKey='+apikey)
+    health = health_ind.json()
+
+    #science
+    science_ind = requests.get('https://newsapi.org/v2/top-headlines?country=in&category=science&apiKey='+apikey)
+    science = science_ind.json()
+
+    context = {
+        'top_headlines':top_headlines,
+        'channels':channels,
+        'sports':sports, 
+        'technology':tech,
+        'business':business,
+        'health':health,
+        'science':science
+        }
+    return render(request,'news.html', context)  

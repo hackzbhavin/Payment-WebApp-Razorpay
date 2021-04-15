@@ -26,7 +26,7 @@ SECRET_KEY = '%7el#2h#3p%gr17ziqc_p9_k$ctr#5c4ov%)jot8500mpq+4@#'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+CSRF_COOKIE_SECURE = False
 
 # Application definition
 
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'payments',
+
 
 ]
 
@@ -132,3 +133,10 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
+
+
+#session related
+
+# SESSION_EXPIRE_AT_BROWSER_CLOSE = True     # opional, as this will log you out when browser is closed
+# SESSION_COOKIE_AGE = 10                   # 0r 5 * 60, same thing
+# SESSION_SAVE_EVERY_REQUEST = True          # Will prrevent from logging you out after 300 seconds

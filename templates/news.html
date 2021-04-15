@@ -1,0 +1,369 @@
+{% load static%}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous"> 
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+<link rel="stylesheet" href={% static 'css/search.css' %}>
+
+
+</head>
+<body>
+
+	
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<a class="navbar-brand" href="#">News-Bar</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+	
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href="#">Home </a>
+				</li>
+				<li class="nav-item ">
+					<a class="nav-link" href="#">Go Back </a>
+				</li>
+	
+	
+			</ul>
+		</div>
+	</nav>
+	<ul class="nav nav-tabs" id="myTab" role="tablist">
+		<li class="nav-item" role="presentation">
+		  <a class="nav-link active" id="home-tab" data-toggle="tab" href="#TOPHEADLINES" role="tab" aria-controls="home" aria-selected="true">TOP HEADLINES</a>
+		</li>
+		<li class="nav-item" role="presentation">
+			<a class="nav-link" id="profile-tab" data-toggle="tab" href="#TECHNEWS" role="tab" aria-controls="profile" aria-selected="false">TECH</a>
+		  </li>
+		<li class="nav-item" role="presentation">
+		  <a class="nav-link" id="profile-tab" data-toggle="tab" href="#SCIENCE" role="tab" aria-controls="profile" aria-selected="false">SCIENCE</a>
+		</li>
+
+		<li class="nav-item" role="presentation">
+			<a class="nav-link" id="profile-tab" data-toggle="tab" href="#SPORTSNEWS" role="tab" aria-controls="profile" aria-selected="false">SPORTS</a>
+		  </li>
+		  <li class="nav-item" role="presentation">
+			<a class="nav-link" id="profile-tab" data-toggle="tab" href="#BUSINESS" role="tab" aria-controls="profile" aria-selected="false">BUSINESS</a>
+		  </li>
+		  <li class="nav-item" role="presentation">
+			<a class="nav-link" id="profile-tab" data-toggle="tab" href="#HEALTH" role="tab" aria-controls="profile" aria-selected="false">HEALTH</a>
+		  </li>
+
+		<li class="nav-item" role="presentation">
+		  <a class="nav-link" id="contact-tab" data-toggle="tab" href="#CHANELS" role="tab" aria-controls="contact" aria-selected="false">CHANNELS</a>
+		</li>
+	  </ul>
+	
+	  <!--- ================================================================================================ --->
+	  <!--- =============================================================================================== --->
+	  <!--- ================================================================================================ --->
+	
+	
+	<div class="tab-content" id="myTabContent">
+	  <!--- ================================================================================================ --->
+	
+				<div class="tab-pane fade show active" id="TOPHEADLINES" role="tabpanel" aria-labelledby="home-tab">
+						
+				
+						<div class="jumbotron jumbotron-fluid">
+								<div class="container">
+									<h1 class="display-4">TOP HEADLINES</h1>
+									<p class="lead">THIS WILL BE OUR EXTRA COMEBACK</p>
+								</div>
+							</div>
+	
+	
+					<div class="row row-cols-1 row-cols-md-3">
+						{% for top_headlines in top_headlines.articles %}
+
+						<div class="card ">
+							<img src="{{ top_headlines.urlToImage }}" class="card-img-top" alt="...">
+							<div class="card-body ">
+							<h5 class="card-title ">{{ top_headlines.data }}</h5>
+							<h7 class="card-title text-warning">{{ top_headlines.source.name }}</h7>
+							<p class="card-text ">{{top_headlines.content}}</p>
+							<a href="{{ top_headlines.url }}" class="card-link">Read More</a>		</div>
+							<div class="card-footer">
+							<small class="text-muted">{{ top_headlines.publishedAt }}</small>
+							</div>
+						</div>
+						
+						{% endfor %}
+						</div>
+	
+				</div>
+	
+	  <!--- ================================================================================================ --->
+	
+						<div class="tab-pane fade" id="TECHNEWS" role="tabpanel" aria-labelledby="profile-tab">                                      
+									
+							<div class="jumbotron jumbotron-fluid">
+									<div class="container">
+										<h1 class="display-4">TECH NEWS</h1>
+										<p class="lead">SOME TECH, SOME INVENTIONS</p>
+									</div>
+								</div>
+	
+								<div class="row row-cols-1 row-cols-md-3">
+									{% for tech in technology.articles %}
+		
+									<div class="card ">	
+										<img src="{{ tech.urlToImage }}" class="card-img-top" alt="...">
+										<div class="card-body ">
+										<h5 class="card-title ">{{ tech.data }}</h5>
+										<h7 class="card-title text-warning">{{ tech.source.name }}</h7>
+										<p class="card-text ">{{tech.content}}</p>
+										<a href="{{ tech.url }}" class="card-link">Read More</a>		</div>
+										<div class="card-footer">
+										<small class="text-muted">{{ tech.publishedAt }}</small>
+									</div>
+								</div>
+								
+								{% endfor %}
+								</div>
+	
+
+	
+						</div>
+	
+  <!--- ================================================================================================ --->
+
+						<div class="tab-pane fade" id="SCIENCE" role="tabpanel" aria-labelledby="profile-tab">                                      
+														
+							<div class="jumbotron jumbotron-fluid">
+									<div class="container">
+										<h1 class="display-4">SCIENCE NEWS</h1>
+										<p class="lead">INTO SCIENCE? DW WE GOT IT COVERED</p>
+									</div>
+								</div>
+
+
+
+
+								<div class="row row-cols-1 row-cols-md-3">
+									{% for sci in science.articles %}
+		
+									<div class="card ">	
+										<img src="{{ sci.urlToImage }}" class="card-img-top" alt="...">
+										<div class="card-body ">
+										<h5 class="card-title ">{{ sci.data }}</h5>
+										<h7 class="card-title text-warning">{{ sci.source.name }}</h7>
+										<p class="card-text ">{{sci.content}}</p>
+										<a href="{{ sci.url }}" class="card-link">Read More</a>		</div>
+										<div class="card-footer">
+										<small class="text-muted">{{ sci.publishedAt }}</small>
+									</div>
+								</div>
+								
+								{% endfor %}
+								</div>
+
+						</div>
+
+  <!--- ================================================================================================ --->
+
+				<div class="tab-pane fade" id="BUSINESS" role="tabpanel" aria-labelledby="profile-tab">                                      
+																		
+					<div class="jumbotron jumbotron-fluid">
+							<div class="container">
+								<h1 class="display-4">BUSINESS NEWS</h1>
+								<p class="lead">INTO BUSINESS? DW WE GOT IT COVERED</p>
+							</div>
+						</div>
+
+
+
+
+						<div class="row row-cols-1 row-cols-md-3">
+							{% for buss in business.articles %}
+
+							<div class="card ">	
+								<img src="{{ buss.urlToImage }}" class="card-img-top" alt="...">
+								<div class="card-body ">
+								<h5 class="card-title ">{{ buss.data }}</h5>
+								<h7 class="card-title text-warning">{{ buss.source.name }}</h7>
+								<p class="card-text ">{{buss.content}}</p>
+								<a href="{{ buss.url }}" class="card-link">Read More</a>		</div>
+								<div class="card-footer">
+								<small class="text-muted">{{ buss.publishedAt }}</small>
+							</div>
+						</div>
+						
+						{% endfor %}
+						</div>
+
+				</div>
+
+  <!--- ================================================================================================ --->
+
+				<div class="tab-pane fade" id="HEALTH" role="tabpanel" aria-labelledby="profile-tab">                                      
+																		
+					<div class="jumbotron jumbotron-fluid">
+							<div class="container">
+								<h1 class="display-4">HEALTH NEWS</h1>
+								<p class="lead">INTO HEALTH? DW WE GOT IT COVERED</p>
+							</div>
+						</div>
+
+
+
+
+						<div class="row row-cols-1 row-cols-md-3">
+							{% for heal in health.articles %}
+
+							<div class="card ">	
+								<img src="{{ heal.urlToImage }}" class="card-img-top" alt="...">
+								<div class="card-body ">
+								<h5 class="card-title ">{{ heal.data }}</h5>
+								<h7 class="card-title text-warning">{{ heal.source.name }}</h7>
+								<p class="card-text ">{{heal.content}}</p>
+								<a href="{{ heal.url }}" class="card-link">Read More</a>		</div>
+								<div class="card-footer">
+								<small class="text-muted">{{ heal.publishedAt }}</small>
+							</div>
+						</div>
+						
+						{% endfor %}
+						</div>
+
+				</div>
+
+
+
+	  <!--- ================================================================================================ --->
+						<div class="tab-pane fade" id="SPORTSNEWS" role="tabpanel" aria-labelledby="contact-tab">
+	
+							<div class="jumbotron jumbotron-fluid">
+								<div class="container">
+									<h1 class="display-4">SPORTS NEWS</h1>
+									<p class="lead">WE LOVE SPORTS AND WE GUESS YOU TOO</p>
+								</div>
+							</div>
+	
+						<div class="row row-cols-1 row-cols-md-3">
+							{% for sport in sports.articles %}
+
+							<div class="card ">	
+								<img src="{{ sport.urlToImage }}" class="card-img-top" alt="...">
+								<div class="card-body ">
+								<h5 class="card-title ">{{ sport.data }}</h5>
+								<h7 class="card-title text-warning">{{ sport.source.name }}</h7>
+								<p class="card-text ">{{sport.content}}</p>
+								<a href="{{ sport.url }}" class="card-link">Read More</a>		</div>
+								<div class="card-footer">
+								<small class="text-muted">{{ sport.publishedAt }}</small>
+							</div>
+						</div>
+						
+						{% endfor %}
+						</div>
+	
+	
+						</div>
+	
+	  <!--- ================================================================================================ --->
+				<div class="tab-pane fade" id="CHANELS" role="tabpanel" aria-labelledby="contact-tab">
+	
+					<div class="jumbotron jumbotron-fluid">
+						<div class="container">
+							<h1 class="display-4">CHOOSE NEWS CHANNELS</h1>
+							<p class="lead">CUSTOMIZE YOUR WAY</p>
+						</div>
+				
+				     
+						<nav class="navbar navbar-expand-lg container">
+                  
+                    
+                          
+							<form class="form-inline my-2 my-lg-0">
+							  <center>
+							  <input class="form-control mr-sm-2"  id="myInput1" onkeyup="myFunction1()" type="search" placeholder="Search For Channel Id" aria-label="Search">
+						  </center>  
+						  </form>
+					 
+						</nav>
+					</div>
+<br>
+		
+									<div class="table-responsive">
+											<table id="myTable1" class="table table-hover table-dark">
+												<thead>
+												<tr>
+													<th scope="col" class='text-center'>Id</th>
+													<th scope="col" class='text-center'>Name</th>
+													<th scope="col" class='text-center'>Desc</th>
+													<th scope="col" class='text-center'>Cate</th>
+													<th scope="col" class='text-center'>Url</th>
+													<th scope="col" class='text-center'>Language</th>
+													<th scope="col" class='text-center'>Country</th>
+												</tr>
+												</thead>
+												<tbody>
+													{% for channel in channels.sources %}
+												<tr>
+													<th scope="row">{{ channel.id }} </th>
+													<td class='text-center'>{{ channel.name }}</td>
+													<td class='text-center'>{{ channel.description }}</td>
+													<td class='text-center'>{{ channel.category }}</td>
+													<td class='text-center'><a href='{{ channel.url }}'>{{ channel.url }}</a></td>
+													<td class='text-center'>{{ channel.language }}</td>
+													<td class='text-center'>{{ channel.country }}</td>
+											
+												</tr>
+										
+												{% endfor %}
+										
+												</tbody>
+											</table>
+										</div>
+											
+				</div>
+	
+	
+	</div>
+	
+	  <!--- ================================================================================================ --->
+	  <!--- ================================================================================================ --->
+	  <!--- ================================================================================================ --->
+	
+	
+
+<script>
+function myFunction1() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput1");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable1");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+
+</script>
+
+
+
+</body>
+</html>

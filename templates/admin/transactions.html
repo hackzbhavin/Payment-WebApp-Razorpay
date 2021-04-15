@@ -67,15 +67,22 @@ td
         </tr>  
         </thead>  
         <tbody >  
+      
+
+
+
+
     {% for resp in response %}
         <tr>  
+
+
             {% comment %} <td class='text-center'>{{ store_unix_time }}</td>   {% endcomment %}
             <td class='text-center'>{{ resp.id }}</td>  
             <td class='text-center'>{{ resp.order_id }}</td>  
            
             {% if resp.status == 'captured' %}
+        
      <td class='text-center text-success' >{{ resp.status}}</td>  
-
            {% else %}
         <td class='text-center text-danger' >{{ resp.status }}</td>  
 

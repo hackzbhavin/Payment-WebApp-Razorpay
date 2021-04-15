@@ -1,0 +1,106 @@
+{% load static %}  
+
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta charset="UTF-8">  
+    <title>All Orders</title>  
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>  
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+</head>  
+
+<style type="text/css">
+td
+{
+max-width: 550px;
+max-height: 150px;
+word-wrap: break-word;
+
+}
+</style>
+
+<body>  
+
+
+
+{% include 'admin/admin-navbar.html' %}
+
+
+
+<div class="container-lg">
+<div class="table-responsive">
+    <div class="table-wrapper">
+        <div class="table-title">
+            <div class="row">
+                <div class="col-sm-8"><h2>All Payment Orders<b>Details</b></h2></div>
+
+            </div>
+        </div>
+
+<table class="table-responsive  table table-hover table-dark" >  
+    <thead >  
+    <tr>  
+        <th class='text-center'>Transaction ID</th>  
+        <th class='text-center'>Status</th>  
+        <th class='text-center'>Amount </th>  
+        <th class='text-center'>Amt_status</th>  
+        <th class='text-center'>Amt_due</th>  
+        <th class='text-center'>Currency</th>
+        <th class='text-center'>Offer_Id</th>
+        <th class='text-center'>Receipt</th>  
+        <th class='text-center'>Attempts</th>  
+        
+    </tr>  
+    </thead>  
+    <tbody >  
+{% for resp in response %}
+    <tr>  
+        <td class='text-center'>{{ resp.id }}</td>  
+
+        {% if resp.status == 'paid' %}
+       <td class='text-center text-success' >{{ resp.status}}</td>  
+
+       {% else %}
+       <td class='text-center text-danger' >{{ resp.status }}</td>  
+
+       {% endif %}
+
+        <td class='text-center' id='amount'> {{resp.amount}}</td>  
+        <td class='text-center' >{{ resp.amount_paid }}</td>  
+        <td class='text-center' >{{ resp.amount_due }}</td>  
+        <td class='text-center' >{{ resp.currency }}</td>  
+        <td class='text-center' >{{ resp.offer_id }}</td>
+        <td class='text-center' >{{ resp.receipt }}</td>  
+        <td class='text-center' >{{ resp.attempts }}</td>
+        
+
+
+
+
+
+
+    </tr>  
+{% endfor %}    
+    </tbody>  
+</table>  
+</div>
+</div>
+</div>
+
+{% comment %} <script>
+
+number = resp.amount
+var result = number.toString().slice(0, -2);
+document.getElementById('amount').innerHTML = result
+
+</script> {% endcomment %}
+
+</body>  
+</html>  

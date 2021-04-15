@@ -1,0 +1,102 @@
+    {% load static %}  
+
+    <!DOCTYPE html>  
+    <html lang="en">  
+    <head>  
+        <meta charset="UTF-8">  
+        <title>Edit Details </title>  
+        <link rel="stylesheet" href="{% static 'css/style.css' %}"/>  
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+   
+
+    </head>  
+<style type="text/css">
+td
+{
+    max-width: 550px;
+    max-height: 150px;
+    word-wrap: break-word;
+    
+}
+</style>
+    <body>  
+
+{% include 'admin/admin-navbar.html' %}
+
+    <div class="container-lg">
+    <div class="table-responsive">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-8"><h2>Edit {{ students.name }} <b>Details</b></h2></div>
+            
+                </div>
+            </div>
+
+            
+<div class="table-responsive">
+    <table class="table table-hover table-dark">  
+        <thead >  
+        <tr>  
+          <th class='text-center'>Student ID</th>  
+            <th class='text-center'>ID-Card</th>  
+            <th class='text-center'>Name</th>  
+            <th class='text-center'>Email</th>  
+            <th class='text-center'>Course Year</th>  
+            <th class='text-center'>Batch Year</th>  
+            <th class='text-center'>Branch </th>  
+            <th class='text-center'>Fees</th> 
+        </tr>  
+        </thead>  
+        <tbody>  
+
+        <tr>  
+                      <td class='text-center'>{{ students.id }}</td>  
+            <td class='text-center'>{{ students.reference_id_card_unique_number }}</td>  
+            <td class='text-center' >{{ students.name }}</td>  
+            <td class='text-center'>{{ students.email }}</td>  
+            <td class='text-center'>{{ students.engineering_year }}</td>  
+            <td class='text-center'>{{ students.batch }}</td>  
+            <td class='text-center'>{{ students.branch }}</td>  
+            <td class='text-center'>{{ students.fees_amount }}</td>  
+   
+        </tr>  
+  
+        </tbody>  
+    </table>  
+    </div>
+
+</div>
+    </div>
+
+    </div>
+
+    <center>
+
+
+
+    <form method="POST" class="post-form" action="/admin/captureup/{{resp.id}}/{{resp.amount}}">  
+            {% csrf_token %}  
+
+
+
+        <div class="form-group row">  
+        <label class="col-sm-1 col-form-label"></label>  
+        <div class="col-sm-4">  
+        <button type="submit" class="btn btn-success">Update</button>  
+        </div>  
+      </div>  
+        </div>  
+    </form>  
+
+</center>
+
+
+
+    </body>  
+    </html>  
