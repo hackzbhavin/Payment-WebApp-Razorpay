@@ -16,7 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include
-
+from django.conf.urls.static import static
+from django.conf import settings
 
 # normal views
 # from payments.views import View_Home_Page, View_Student_Register, View_Student_Login, View_Student_Dashboard_Details, View_Student_Logout
@@ -29,6 +30,7 @@ from payments.views import *
 urlpatterns = [
     path('', View_Home_Page, name='home'),
     path('news/',View_News, name='news'),
+    # path('jobs/',View_Jobs, name='jobs'),
     path('register/', View_Student_Register, name='register'),
     path('login/', View_Student_Login, name='login'),
     path('student_dashboard/', View_Student_Dashboard_Details, name='student_dashboard'),
@@ -36,6 +38,7 @@ urlpatterns = [
     path('payments/', include('payments.urls'), name='payments'),
     path('dummy_dashboard/',View_dummy_dashboard,name='dummy_dashboard'),
     path('logout/',View_Student_Logout, name='logout'),
+    path('takesnap/',View_Snapshot, name='snap'),
     
     #admin views
     path('admin/', View_Admin_Login, name='admin_login'),
@@ -47,4 +50,4 @@ urlpatterns = [
     path('admin/allorder', View_All_Orders, name='allorders'),
     path('admin/delete/<int:id>', View_Delete_Students, name='delete'),
     path('admin/logout/',View_Admin_Logout, name='admin_logout'),
- ]
+ ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

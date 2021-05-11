@@ -21,6 +21,13 @@ import requests
 import datetime
 
 
+from django.views.decorators.csrf import csrf_exempt
+import random
+import string
+import base64
+from django.http import JsonResponse
+
+
 #razorpay 
 import razorpay
 
@@ -28,7 +35,11 @@ import razorpay
 #====> razorpay api
 #=====================================================================================
 
-client = razorpay.Client(auth=("rzp_test_2pdcS0Lko7Kku4", "pYYU47RJfE4Tq7dM1CqlgSXB"))
+razorpay_key_id = 'rzp_test_2pdcS0Lko7Kku4'
+razorpay_key_secret = 'pYYU47RJfE4Tq7dM1CqlgSXB'
+
+
+client = razorpay.Client(auth=(razorpay_key_id, razorpay_key_secret))
 
 
 #=====================================================================================
@@ -239,7 +250,7 @@ def View_Order_Page(request):
 
 
 #=====================================================================================
-#====> For Login
+#====> For Logout
 #=====================================================================================
 # @login_required(login_url='login')
 def View_Student_Logout(request):
@@ -292,6 +303,8 @@ def View_Create_Order(request):
             context['name'] = name
             context['phone'] = phone
             context['email'] = email
+
+            context['razorpay_key_id'] = razorpay_key_id
 
             # data that'll be send to the razorpay for
             context['order_id'] = order_id
@@ -554,3 +567,30 @@ def View_News(request):
         'bbc_news':bbc_news,
         }
     return render(request,'news.html', context)  
+
+#=====================================================================================
+#====> For snap
+#=====================================================================================
+def View_Snapshot(request):
+    if request.method == "POST":
+        data = request.body
+        data = json.loads(data[0:len(data)])
+        print(data)
+        c = Category.objects.get(pk=1)
+        temp = len('data:image/jpeg;base64,')
+        for d in data:
+            d = d[temp:len(d)]
+            imgdata = base64.b64decode(d)
+            filename = randomString()+'.jpg'  # I assume you have a way of picking unique filenames
+            with open('media/'+filename, 'wb') as f:
+                f.write(imgdata)
+            i = Images.objects.create(category=c, file=filename)
+            i.save()
+            print(i)
+        return JsonResponse({'data': 'Success'})
+    return render(request, 'takesnap.html')
+
+def randomString(stringLength=5):
+    """Generate a random string of fixed length """
+    letters = string.ascii_lowercase
+    return ''.join(random.choice(letters) for i in range(stringLength))

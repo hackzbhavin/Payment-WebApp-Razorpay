@@ -91,6 +91,10 @@
                                 <h7 class="m-b-20 p-b-5 b-b-default f-w-600">Your Details Yet To Be Added</h7>
                                 <br>
                                 <br>
+                                <br>
+                                <h7 class="m-b-20 p-b-5 b-b-default f-w-600 counter"></h7>
+                                <br>
+                                <br>
                                 <button class='btn btn-outline-warning my-2 my-sm-0' onclick="typeWriter()">Click me</button>
                                 <br>
                                 <br>
@@ -169,6 +173,19 @@
 
 <script>
 
+    var counter = document.querySelector('.counter')
+var count  =  30;
+
+    setInterval(() => {
+       
+  if(count >0)     { 
+count--;
+counter.innerText = count;
+    }
+
+
+    }, 1000);
+
     var i = 0;
     var txt = 'Hey {{ user.first_name }}! Your Details are Recorded and will be updated soon. In 30 Seconds we will make you logout';
     var speed = 50;
@@ -185,8 +202,15 @@
             setTimeout(function(){ 
                     window.location.replace("{% url 'logout'%}");
                 }
-                , 30000);	
-            }
+                , 900000);	
+            } 
+
+
+
+
+
+
+
 </script>
 
 
