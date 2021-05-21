@@ -35,8 +35,8 @@ import razorpay
 #====> razorpay api
 #=====================================================================================
 
-razorpay_key_id = 'rzp_test_2pdcS0Lko7Kku4'
-razorpay_key_secret = 'pYYU47RJfE4Tq7dM1CqlgSXB'
+razorpay_key_id = 'your key id'
+razorpay_key_secret = 'your key secret'
 
 
 client = razorpay.Client(auth=(razorpay_key_id, razorpay_key_secret))
