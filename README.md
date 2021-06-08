@@ -1,3 +1,16 @@
+### To run the project
+
+Makemigrations for migration of settings.py file and to check installed libraries/module
+- python3 manage.py makemigrations
+
+Migrate Settings for database
+- python3 manage.py migrate
+
+To Runserver
+- python3 manage.py runserver
+
+### Git Commands
+
 Push project to existing repositary without changing existing code with new branch
 
 - git init
