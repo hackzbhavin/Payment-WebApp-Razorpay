@@ -1,3 +1,32 @@
+
+<h1 align='center'> Screenshots of UI </h1>
+
+
+### Student Home Page UI
+
+<img src='https://github.com/hackzbhavin/Payment-WebApp-Razorpay/blob/main/static/assets/images/homepage.jpeg' />
+
+----
+
+### Student Dashboard Page UI
+
+<img src='https://github.com/hackzbhavin/Payment-WebApp-Razorpay/blob/main/static/assets/images/dashboardpage.jpeg' />
+
+----
+
+### Modes of Payment
+
+![Image of Payments Mode](static/assets/images/left-image.png)
+
+-----
+#### Screenshots and Images/UI of Project
+
+![Image of UI](static/assets/images/dash.png)
+
+----
+----
+
+
 ### To run the project
 
 Makemigrations for migration of settings.py file and to check installed libraries/module
@@ -61,25 +90,5 @@ Push project to existing repositary without changing existing code with new bran
 ```
 
 
------
------
-#### Screenshots and Images/UI of Project
-
-![Image of UI](static/assets/images/dash.png)
-
-----
-----
-##### Full Flex Responsiveness News Page also added to integrate with other connected project
-
-![Image of UI](static/assets/images/all-devices.png)
-
-
-----
-----
-----
-
-#### Modes of Payment
-
-![Image of Payments Mode](static/assets/images/left-image.png)
 
 
